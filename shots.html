@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lesson Kickoff — Implementation Screenshots</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Nunito', system-ui, sans-serif;
+            background: #0F1010;
+            color: #fff;
+            padding: 32px 16px 80px;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 80% -10%, rgba(140,158,255,0.10), transparent 50%),
+                radial-gradient(ellipse at -10% 110%, rgba(212,160,23,0.06), transparent 55%);
+        }
+        .wrap { max-width: 720px; margin: 0 auto; }
+        .kicker {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #FBC02D;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-weight: 900;
+            font-size: clamp(28px, 6.5vw, 38px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        h1 em { font-style: italic; color: #8C9EFF; font-weight: 800; }
+        .lead {
+            font-size: 14.5px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            line-height: 1.55;
+            max-width: 560px;
+            margin: 0 auto 36px;
+        }
+        .lead b { color: #fff; font-weight: 800; }
+        .shot {
+            margin: 0 auto 36px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 22px;
+            padding: 22px 18px;
+        }
+        .shot-label {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #FBC02D;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .shot-name {
+            font-family: 'Fraunces', serif;
+            font-weight: 800;
+            font-size: 22px;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+        .shot-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .shot img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 14px;
+            background: #FFFDF7;
+            box-shadow: 0 22px 56px rgba(0,0,0,0.4), 0 6px 18px rgba(0,0,0,0.25);
+        }
+        .meta {
+            margin-top: 12px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-align: center;
+        }
+        .note {
+            margin-top: 28px;
+            padding: 16px 20px;
+            background: rgba(140,158,255,0.08);
+            border-left: 3px solid rgba(140,158,255,0.5);
+            border-radius: 4px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.78);
+            line-height: 1.55;
+        }
+        .note b { color: #fff; font-weight: 800; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="kicker">SwiftUI · Built · Running on Simulator</div>
+        <h1>Lesson kickoff — <em>shipped</em></h1>
+        <p class="lead">Three screenshots from the actual built app: <b>iPhone</b>, <b>iPad portrait</b>, and <b>iPad landscape</b> (master-detail split). Real Swift, real `GeometryReader { isLandscapeIPad }` branching, real `TopicCategory` data.</p>
+
+        <div class="shot">
+            <div class="shot-label">A · iPhone</div>
+            <div class="shot-name">iPhone Air · 2-column catalog</div>
+            <div class="shot-desc">Hero, 2-col grid of all 8 topics with sample-lesson teasers, helper card, and the disabled CTA waiting on a selection.</div>
+            <img src="shot-iphone.png" alt="iPhone screenshot">
+        </div>
+
+        <div class="shot">
+            <div class="shot-label">B · iPad Portrait</div>
+            <div class="shot-name">iPad mini · 3-column catalog</div>
+            <div class="shot-desc">Same screen on iPad portrait. Grid auto-expands to 3 columns (8 topics fit in 3 rows: 3 / 3 / 2). Generous padding, readable spacing.</div>
+            <img src="shot-ipad-portrait.png" alt="iPad portrait screenshot">
+        </div>
+
+        <div class="shot">
+            <div class="shot-label">C · iPad Landscape</div>
+            <div class="shot-name">iPad mini · master-detail split</div>
+            <div class="shot-desc">The creative direction you asked for. Two columns: hero + 2-col topic grid on the left, rich preview panel on the right with the selected topic's emoji art tile (with sparkles), blurb, "Mia stars in every page" callout with avatar pip, numbered "What's inside" list, and the "READY IN ~10 MIN" pill.</div>
+            <img src="shot-ipad-landscape.png" alt="iPad landscape screenshot">
+            <div class="meta">Note: rendered via the harness at the actual 1180×820 dimensions, scaled to fit the iPad mini portrait viewport for the screenshot. The layout itself is the real `isLandscapeIPad` branch from the GeometryReader.</div>
+        </div>
+
+        <div class="note">
+            <b>Notes:</b> the <b>ContentView.swift</b> is currently rigged as a screenshot harness pointing straight at <code>SellFlowLessonKickoffScreen</code>. I'll revert that before any commit. The real Swift changes are in <code>SellFlowLessonKickoffScreen.swift</code> (full rewrite) and <code>TopicCategory.swift</code> (added <code>slides(forAge:)</code> and <code>description(forChildName:)</code>). Build is clean on iPhone 17 Pro sim.
+        </div>
+    </div>
+</body>
+</html>
