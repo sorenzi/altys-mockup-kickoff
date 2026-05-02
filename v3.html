@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lesson Kickoff — Shipped in Swift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Nunito', system-ui, sans-serif;
+            background: #0F1010;
+            color: #fff;
+            padding: 32px 16px 80px;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 80% -10%, rgba(140,158,255,0.10), transparent 50%),
+                radial-gradient(ellipse at -10% 110%, rgba(212,160,23,0.06), transparent 55%);
+        }
+        .wrap { max-width: 760px; margin: 0 auto; }
+        .kicker {
+            font-family: 'Fraunces', serif; font-style: italic;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #FBC02D;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-family: 'Fraunces', serif; font-weight: 900;
+            font-size: clamp(28px, 6.5vw, 38px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        h1 em { font-style: italic; color: #8C9EFF; font-weight: 800; }
+        .lead {
+            font-size: 14.5px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            line-height: 1.55;
+            max-width: 580px;
+            margin: 0 auto 36px;
+        }
+        .lead b { color: #fff; font-weight: 800; }
+        .shot {
+            margin: 0 auto 36px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 22px;
+            padding: 22px 18px 24px;
+        }
+        .shot-label {
+            font-family: 'Fraunces', serif; font-style: italic;
+            font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+            color: #FBC02D; font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .shot-name {
+            font-family: 'Fraunces', serif; font-weight: 800;
+            font-size: 22px;
+            margin-bottom: 8px; letter-spacing: -0.01em;
+        }
+        .shot-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .shot img {
+            width: 100%;
+            height: auto; display: block;
+            border-radius: 14px;
+            background: #FFFDF7;
+            box-shadow: 0 22px 56px rgba(0,0,0,0.4), 0 6px 18px rgba(0,0,0,0.25);
+        }
+        .changes {
+            background: rgba(165,214,167,0.08);
+            border-left: 3px solid rgba(165,214,167,0.5);
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin-bottom: 28px;
+        }
+        .changes h3 {
+            font-family: 'Fraunces', serif; font-style: italic;
+            font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+            color: #C5E1A5; font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .changes ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .changes li {
+            display: grid;
+            grid-template-columns: 16px 1fr;
+            gap: 10px;
+            font-size: 13.5px;
+            color: rgba(255,255,255,0.82);
+            line-height: 1.5;
+        }
+        .changes li::before { content: "✓"; color: #C5E1A5; font-weight: 900; line-height: 1.5; }
+        .changes b { color: #fff; font-weight: 800; }
+        .changes code {
+            font-family: ui-monospace, "SF Mono", monospace;
+            font-size: 12.5px;
+            background: rgba(255,255,255,0.08);
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="kicker">Implementation · Built &amp; running on simulator</div>
+        <h1>Lesson kickoff — <em>shipped</em></h1>
+        <p class="lead">SwiftUI implementation of the V2 design. Three real screenshots from the actual built app on iPhone Air + iPad mini sims.</p>
+
+        <div class="changes">
+            <h3>What's in the codebase now</h3>
+            <ul>
+                <li><b>Full rewrite of <code>SellFlowLessonKickoffScreen.swift</code></b> matching the V2 postcard design — 2-col grid only, vertical postcard cards, master-detail split on iPad landscape.</li>
+                <li><b>Topic colors</b> use a new <code>kickoffTint(for:)</code> palette (sky/pink/golden/coral/lavender/peach/etc) so Ocean stays sky-blue across themes — the existing <code>TopicCategory.chipColor</code> was theme-dependent and collapsed several topics to mustard on the periwinkle theme.</li>
+                <li><b>iPad landscape detection</b> uses the canonical <code>GeometryReader { let isLandscapeIPad = isIPad &amp;&amp; geo.size.width &gt; geo.size.height }</code> pattern from <code>ABTestablePaywallView</code>.</li>
+                <li><b><code>TopicCategory</code> got</b> <code>slides(forAge:)</code> (returns the 3-phrase bank) and <code>description(forChildName:)</code> (long blurb for the right panel).</li>
+                <li><b><code>ContentView.swift</code> reverted</b> back to <code>AppEntryView</code> — no test harness left behind.</li>
+                <li><b>Build clean</b> on iPhone 17 Pro simulator.</li>
+            </ul>
+        </div>
+
+        <div class="shot">
+            <div class="shot-label">A · iPhone (iPhone Air sim)</div>
+            <div class="shot-name">Postcards, 2-col</div>
+            <div class="shot-desc">Color-blocked top half with the topic emoji, white info strip below with the topic name (Fraunces serif via theme.headingFontName) + a one-line teaser pulled from the real phrase bank.</div>
+            <img src="v3-phone.png" alt="Phone — built">
+        </div>
+
+        <div class="shot">
+            <div class="shot-label">B · iPad Portrait (iPad mini sim)</div>
+            <div class="shot-name">Same 2-col, scaled up</div>
+            <div class="shot-desc">Same postcard cards, larger emoji and more breathing room. CTA pinned at the bottom; the bottom row peeks behind the gradient (scrollable on the real device).</div>
+            <img src="v3-ipad-portrait.png" alt="iPad portrait — built">
+        </div>
+
+        <div class="shot">
+            <div class="shot-label">C · iPad Landscape (iPad mini sim, harness-forced)</div>
+            <div class="shot-name">Master-detail split</div>
+            <div class="shot-desc">All 8 postcards in the left column. Right side is a full-height panel: colored poster top with the bobbing emoji and twinkling sparkles, name + blurb + "Mia stars in every page" callout with avatar pip + numbered "What's inside" + "READY IN ~10 MIN" pill, and the CTA pinned to the bottom edge. CTA stays disabled until a topic is picked.</div>
+            <img src="v3-ipad-landscape.png" alt="iPad landscape — built">
+        </div>
+    </div>
+</body>
+</html>
