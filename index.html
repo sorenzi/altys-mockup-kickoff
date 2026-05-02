@@ -6,7 +6,7 @@
     <title>Lesson Kickoff — Variation Review</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700;1,9..144,800&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700;1,9..144,800;1,9..144,900&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -44,7 +44,7 @@
         }
 
         /* ============================================================
-           REVIEW CHROME — sticky toolbar with tabs + device toggle
+           REVIEW CHROME
            ============================================================ */
         .reviewbar {
             position: sticky;
@@ -54,7 +54,7 @@
             -webkit-backdrop-filter: blur(14px);
             background: rgba(20, 20, 20, 0.85);
             border-bottom: 1px solid rgba(255,255,255,0.08);
-            padding: max(env(safe-area-inset-top), 12px) 16px 12px;
+            padding: max(env(safe-area-inset-top), 12px) 14px 12px;
         }
         .reviewbar-inner {
             max-width: 1280px;
@@ -62,6 +62,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            align-items: center;
         }
         .rb-title {
             font-family: 'Fraunces', serif;
@@ -71,10 +72,9 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--gold-soft);
-            text-align: center;
         }
-        @media (min-width: 720px) {
-            .reviewbar-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+        @media (min-width: 900px) {
+            .reviewbar-inner { flex-direction: row; justify-content: space-between; }
         }
         .toggle-group {
             display: inline-flex;
@@ -82,23 +82,26 @@
             border: 1px solid rgba(255,255,255,0.12);
             border-radius: 999px;
             padding: 3px;
+            max-width: 100%;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
-        .toggle-group.center { align-self: center; }
+        .toggle-group::-webkit-scrollbar { display: none; }
         .toggle-btn {
             background: transparent;
             border: none;
             color: rgba(255,255,255,0.6);
             font-family: 'Nunito', sans-serif;
             font-weight: 700;
-            font-size: 13px;
-            padding: 9px 16px;
+            font-size: 12.5px;
+            padding: 8px 13px;
             border-radius: 999px;
             cursor: pointer;
             transition: all 0.18s ease;
             white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
         .toggle-btn:hover { color: rgba(255,255,255,0.85); }
         .toggle-btn.active {
@@ -106,23 +109,21 @@
             color: #fff;
             box-shadow: 0 2px 6px rgba(140,158,255,0.4);
         }
-        .toggle-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+        .toggle-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
 
         /* ============================================================
-           STAGE — the device frame
+           STAGE
            ============================================================ */
         .stage-area {
-            padding: 24px 16px 80px;
+            padding: 20px 14px 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: calc(100dvh - 110px);
         }
-
         .stage-meta {
             text-align: center;
-            margin-bottom: 18px;
-            max-width: 520px;
+            margin-bottom: 16px;
+            max-width: 540px;
         }
         .stage-meta h2 {
             font-family: 'Fraunces', serif;
@@ -143,6 +144,9 @@
             justify-content: center;
             position: relative;
         }
+        .stage-wrap.scaled-mode {
+            overflow: visible;
+        }
 
         .stage {
             background: var(--bg-cream);
@@ -153,28 +157,37 @@
             container: stage / inline-size;
             position: relative;
         }
-        /* Phone */
         .stage[data-device="phone"] {
             width: min(412px, 100%);
             min-height: 760px;
         }
-        /* iPad — natural at desktop, scaled at narrow viewports */
-        .stage[data-device="ipad"] {
+        .stage[data-device="ipad-portrait"] {
             width: 820px;
             min-height: 1100px;
         }
+        .stage[data-device="ipad-landscape"] {
+            width: 1180px;
+            min-height: 820px;
+        }
         @media (max-width: 880px) {
-            .stage[data-device="ipad"] {
-                transform: scale(var(--ipad-scale, 0.42));
+            .stage[data-device="ipad-portrait"] {
+                transform: scale(var(--scale, 0.42));
                 transform-origin: top center;
             }
-            .stage-wrap.ipad-mode {
-                height: calc(1100px * var(--ipad-scale, 0.42) + 24px);
-                overflow: visible;
+            .stage-wrap.ipad-portrait-mode {
+                height: calc(1100px * var(--scale, 0.42) + 24px);
+            }
+        }
+        @media (max-width: 1240px) {
+            .stage[data-device="ipad-landscape"] {
+                transform: scale(var(--scale, 0.32));
+                transform-origin: top center;
+            }
+            .stage-wrap.ipad-landscape-mode {
+                height: calc(820px * var(--scale, 0.32) + 24px);
             }
         }
 
-        /* Caption under stage */
         .stage-caption {
             margin-top: 22px;
             font-size: 12px;
@@ -185,15 +198,12 @@
         }
 
         /* ============================================================
-           DESIGN SHARED — the actual lesson-kickoff screen
-           uses container queries on .stage so it adapts to its
-           container size, not the page viewport.
+           DESIGN — shared
            ============================================================ */
         .design {
             display: none;
             color: var(--ink);
             min-height: inherit;
-            padding-bottom: 160px;
             position: relative;
             background-image:
                 radial-gradient(ellipse at 80% -10%, rgba(140,158,255,0.10), transparent 50%),
@@ -201,11 +211,35 @@
         }
         .design.show { display: block; }
 
-        .d-inner {
-            padding: 18px 18px 0;
+        /* Layout wrapper — switches to split in landscape */
+        .d-layout {
+            padding: 18px 18px 160px;
         }
-        @container stage (min-width: 720px)  { .d-inner { padding: 28px 32px 0; } }
-        @container stage (min-width: 1000px) { .d-inner { padding: 36px 56px 0; max-width: 920px; margin: 0 auto; } }
+        @container stage (min-width: 720px)  { .d-layout { padding: 28px 32px 180px; } }
+        @container stage (min-width: 1000px) { .d-layout { padding: 36px 56px 200px; } }
+        @container stage (min-width: 1100px) {
+            .d-layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+                gap: 36px;
+                padding: 32px 36px 36px;
+                max-width: 1180px;
+                min-height: 820px;
+                align-items: stretch;
+            }
+        }
+
+        .d-left { min-width: 0; }
+        .d-right { display: none; min-width: 0; }
+        @container stage (min-width: 1100px) {
+            .d-right {
+                display: flex;
+                flex-direction: column;
+                position: sticky;
+                top: 32px;
+                height: fit-content;
+            }
+        }
 
         /* Top bar */
         .d-topbar {
@@ -214,7 +248,7 @@
             justify-content: space-between;
             margin-bottom: 22px;
         }
-        @container stage (min-width: 720px) { .d-topbar { margin-bottom: 32px; } }
+        @container stage (min-width: 720px) { .d-topbar { margin-bottom: 28px; } }
         .d-back {
             width: 40px; height: 40px;
             border-radius: 999px;
@@ -240,9 +274,10 @@
         .d-who::before { content: "✶ "; color: var(--gold); }
 
         /* Hero */
-        .d-hero { margin-bottom: 20px; }
-        @container stage (min-width: 1000px) { .d-hero { text-align: center; max-width: 640px; margin: 8px auto 28px; } }
-
+        .d-hero { margin-bottom: 18px; }
+        @container stage (min-width: 1000px) and (max-width: 1099px) {
+            .d-hero { text-align: center; max-width: 640px; margin: 8px auto 28px; }
+        }
         .d-eyebrow {
             font-family: 'Fraunces', serif;
             font-style: italic;
@@ -260,15 +295,12 @@
             line-height: 1.0;
             letter-spacing: -0.02em;
             color: var(--ink);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
-        @container stage (min-width: 720px)  { .d-title { font-size: 44px; } }
-        @container stage (min-width: 1000px) { .d-title { font-size: 56px; } }
-        .d-title em {
-            font-style: italic;
-            font-weight: 800;
-            color: var(--periwinkle-deep);
-        }
+        @container stage (min-width: 720px)  { .d-title { font-size: 42px; } }
+        @container stage (min-width: 1000px) { .d-title { font-size: 50px; } }
+        @container stage (min-width: 1100px) { .d-title { font-size: 44px; line-height: 1.02; margin-bottom: 12px; } }
+        .d-title em { font-style: italic; font-weight: 800; color: var(--periwinkle-deep); }
         .d-sub {
             font-size: 15px;
             color: var(--text-2);
@@ -276,11 +308,10 @@
             line-height: 1.5;
             max-width: 540px;
         }
-        @container stage (min-width: 720px) { .d-sub { font-size: 16.5px; } }
-        @container stage (min-width: 1000px) { .d-sub { margin: 0 auto; } }
+        @container stage (min-width: 720px) { .d-sub { font-size: 16px; } }
         .d-sub b { color: var(--ink); font-weight: 800; }
 
-        /* ============== TOPIC GRID — base ============== */
+        /* Topic grid */
         .d-topics {
             list-style: none;
             display: grid;
@@ -290,21 +321,16 @@
         }
         @container stage (min-width: 720px)  { .d-topics { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
         @container stage (min-width: 1000px) { .d-topics { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
+        @container stage (min-width: 1100px) { .d-topics { grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 4px; } }
 
         .topic {
             position: relative;
             cursor: pointer;
             user-select: none;
             -webkit-user-select: none;
-            transition:
-                transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow 0.18s ease,
-                background 0.18s ease,
-                border-color 0.18s ease;
-            outline: none;
+            transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
         }
         .topic:active { transform: translate(1px, 1px) scale(0.99); }
-
         .topic-star {
             position: absolute;
             top: -8px; right: -8px;
@@ -324,42 +350,40 @@
         }
         .topic.selected .topic-star { opacity: 1; transform: scale(1); }
 
-        /* ============== A · CATALOG (the "much better" baseline) ============== */
+        /* Variant A: Catalog */
         .design.catalog .topic {
             background: #fff;
             border: 1.5px solid var(--ink);
             border-radius: 22px;
             padding: 18px 14px 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
+            display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
             box-shadow: 2px 2px 0 var(--ink);
             min-height: 142px;
         }
-        @container stage (min-width: 720px) {
-            .design.catalog .topic { padding: 22px 18px 18px; min-height: 168px; gap: 12px; }
-        }
+        @container stage (min-width: 720px) { .design.catalog .topic { padding: 22px 18px 18px; min-height: 168px; gap: 12px; } }
+        @container stage (min-width: 1100px) { .design.catalog .topic { padding: 16px 14px; min-height: 96px; flex-direction: row; align-items: center; gap: 14px; } }
+
         .design.catalog .topic-icon {
             width: 48px; height: 48px;
             border-radius: 14px;
             background: var(--tint, var(--pastel-periwinkle));
             border: 1.5px solid var(--ink);
             display: flex; align-items: center; justify-content: center;
-            font-size: 28px; line-height: 1;
+            font-size: 28px; line-height: 1; flex-shrink: 0;
         }
-        @container stage (min-width: 720px) {
-            .design.catalog .topic-icon { width: 56px; height: 56px; font-size: 32px; border-radius: 16px; }
-        }
-        .design.catalog .topic-name {
-            font-weight: 900; font-size: 17px; color: var(--ink); letter-spacing: -0.01em; line-height: 1.1;
-        }
+        @container stage (min-width: 720px) { .design.catalog .topic-icon { width: 56px; height: 56px; font-size: 32px; border-radius: 16px; } }
+        @container stage (min-width: 1100px) { .design.catalog .topic-icon { width: 50px; height: 50px; font-size: 28px; } }
+
+        .design.catalog .topic-name { font-weight: 900; font-size: 17px; color: var(--ink); letter-spacing: -0.01em; line-height: 1.1; }
         @container stage (min-width: 720px) { .design.catalog .topic-name { font-size: 19px; } }
+        @container stage (min-width: 1100px) { .design.catalog .topic-name { font-size: 17px; } }
         .design.catalog .topic-teaser {
             font-size: 12.5px; color: var(--text-2); font-weight: 500; line-height: 1.35;
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
         @container stage (min-width: 720px) { .design.catalog .topic-teaser { font-size: 13.5px; } }
+        @container stage (min-width: 1100px) { .design.catalog .topic-teaser { font-size: 12.5px; -webkit-line-clamp: 1; } }
+
         .design.catalog .topic.selected {
             background: var(--periwinkle-bg);
             border-color: var(--periwinkle-deep);
@@ -368,49 +392,39 @@
         }
         .design.catalog .topic.selected .topic-icon { background: #fff; border-color: var(--periwinkle-deep); }
 
-        /* ============== B · TINTED (full pastel cards, more color) ============== */
+        /* Variant B: Tinted */
         .design.tinted .topic {
             background: var(--tint, var(--pastel-periwinkle));
             border: 1.5px solid var(--ink);
             border-radius: 22px;
             padding: 18px 16px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: flex; flex-direction: column; gap: 8px;
             box-shadow: 2px 2px 0 var(--ink);
             min-height: 146px;
         }
-        @container stage (min-width: 720px) {
-            .design.tinted .topic { padding: 22px 20px 20px; min-height: 176px; gap: 10px; }
-        }
-        .design.tinted .topic-icon {
-            font-size: 38px;
-            line-height: 1;
-            margin-bottom: 2px;
-        }
-        @container stage (min-width: 720px) {
-            .design.tinted .topic-icon { font-size: 48px; }
-        }
+        @container stage (min-width: 720px) { .design.tinted .topic { padding: 22px 20px 20px; min-height: 176px; gap: 10px; } }
+        @container stage (min-width: 1100px) { .design.tinted .topic { padding: 14px 16px; min-height: 96px; flex-direction: row; align-items: center; gap: 14px; } }
+
+        .design.tinted .topic-icon { font-size: 38px; line-height: 1; }
+        @container stage (min-width: 720px) { .design.tinted .topic-icon { font-size: 48px; } }
+        @container stage (min-width: 1100px) { .design.tinted .topic-icon { font-size: 32px; flex-shrink: 0; } }
+
         .design.tinted .topic-name {
-            font-family: 'Fraunces', serif;
-            font-weight: 800;
-            font-size: 20px;
-            line-height: 1.0;
-            color: var(--ink);
-            letter-spacing: -0.015em;
+            font-family: 'Fraunces', serif; font-weight: 800;
+            font-size: 20px; line-height: 1.0; color: var(--ink); letter-spacing: -0.015em;
         }
         @container stage (min-width: 720px) { .design.tinted .topic-name { font-size: 24px; } }
+        @container stage (min-width: 1100px) { .design.tinted .topic-name { font-size: 20px; } }
         .design.tinted .topic-teaser {
-            font-size: 12.5px;
-            color: rgba(26,26,26,0.7);
-            font-weight: 600;
-            line-height: 1.35;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            font-size: 12.5px; color: rgba(26,26,26,0.7); font-weight: 600; line-height: 1.35;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
         @container stage (min-width: 720px) { .design.tinted .topic-teaser { font-size: 13.5px; } }
+        @container stage (min-width: 1100px) { .design.tinted .topic-teaser { -webkit-line-clamp: 1; } }
+        @container stage (min-width: 1100px) {
+            .design.tinted .topic-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+        }
+
         .design.tinted .topic.selected {
             border-color: var(--periwinkle-deep);
             border-width: 2.5px;
@@ -424,16 +438,13 @@
             border-radius: 22px;
             border: 2px solid rgba(255,255,255,0.7);
             pointer-events: none;
-            z-index: 1;
         }
 
-        /* ============== C · EDITORIAL (horizontal rows, magazine feel) ============== */
-        .design.editorial .d-topics {
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-        @container stage (min-width: 720px) { .design.editorial .d-topics { grid-template-columns: 1fr 1fr; gap: 14px; } }
+        /* Variant C: Editorial */
+        .design.editorial .d-topics { grid-template-columns: 1fr; gap: 10px; }
+        @container stage (min-width: 720px)  { .design.editorial .d-topics { grid-template-columns: 1fr 1fr; gap: 14px; } }
         @container stage (min-width: 1000px) { .design.editorial .d-topics { grid-template-columns: 1fr 1fr; gap: 16px; max-width: 920px; margin: 8px auto 0; } }
+        @container stage (min-width: 1100px) { .design.editorial .d-topics { grid-template-columns: 1fr; gap: 8px; max-width: none; margin-top: 4px; } }
 
         .design.editorial .topic {
             background: #fff;
@@ -447,9 +458,9 @@
             box-shadow: 2px 2px 0 var(--ink);
             min-height: 88px;
         }
-        @container stage (min-width: 720px) {
-            .design.editorial .topic { padding: 18px 18px; grid-template-columns: 72px 1fr; gap: 16px; min-height: 110px; }
-        }
+        @container stage (min-width: 720px) { .design.editorial .topic { padding: 18px 18px; grid-template-columns: 72px 1fr; gap: 16px; min-height: 110px; } }
+        @container stage (min-width: 1100px) { .design.editorial .topic { padding: 12px 14px; grid-template-columns: 52px 1fr; gap: 12px; min-height: 76px; } }
+
         .design.editorial .topic-icon {
             width: 60px; height: 60px;
             border-radius: 14px;
@@ -459,34 +470,23 @@
             font-size: 32px; line-height: 1;
             align-self: stretch;
         }
-        @container stage (min-width: 720px) {
-            .design.editorial .topic-icon { width: 72px; height: 72px; font-size: 38px; border-radius: 16px; }
-        }
+        @container stage (min-width: 720px) { .design.editorial .topic-icon { width: 72px; height: 72px; font-size: 38px; border-radius: 16px; } }
+        @container stage (min-width: 1100px) { .design.editorial .topic-icon { width: 52px; height: 52px; font-size: 28px; border-radius: 12px; } }
         .design.editorial .topic-body { min-width: 0; }
         .design.editorial .topic-name {
-            font-family: 'Fraunces', serif;
-            font-weight: 800;
-            font-size: 21px;
-            line-height: 1.05;
-            color: var(--ink);
-            letter-spacing: -0.015em;
+            font-family: 'Fraunces', serif; font-weight: 800;
+            font-size: 21px; line-height: 1.05; color: var(--ink); letter-spacing: -0.015em;
             margin-bottom: 4px;
         }
         @container stage (min-width: 720px) { .design.editorial .topic-name { font-size: 24px; } }
-        .design.editorial .topic-name em {
-            font-style: italic; color: var(--periwinkle-deep);
-        }
+        @container stage (min-width: 1100px) { .design.editorial .topic-name { font-size: 19px; margin-bottom: 1px; } }
+        .design.editorial .topic-name em { font-style: italic; color: var(--periwinkle-deep); }
         .design.editorial .topic-teaser {
-            font-size: 13px;
-            color: var(--text-2);
-            font-weight: 500;
-            line-height: 1.35;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            font-size: 13px; color: var(--text-2); font-weight: 500; line-height: 1.35;
+            display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
         }
         @container stage (min-width: 720px) { .design.editorial .topic-teaser { font-size: 14px; -webkit-line-clamp: 2; } }
+        @container stage (min-width: 1100px) { .design.editorial .topic-teaser { font-size: 12.5px; -webkit-line-clamp: 1; } }
         .design.editorial .topic.selected {
             background: var(--periwinkle-bg);
             border-color: var(--periwinkle-deep);
@@ -494,7 +494,9 @@
             transform: translate(-1px, -1px);
         }
 
-        /* ============== Helper card + CTA shared ============== */
+        /* ============================================================
+           Helper card (only in non-landscape)
+           ============================================================ */
         .d-helper {
             margin-top: 22px;
             padding: 14px 16px;
@@ -506,27 +508,31 @@
             color: var(--text-2);
             line-height: 1.4;
         }
-        @container stage (min-width: 1000px) { .d-helper { max-width: 680px; margin: 28px auto 0; } }
+        @container stage (min-width: 1000px) and (max-width: 1099px) {
+            .d-helper { max-width: 680px; margin: 28px auto 0; }
+        }
+        @container stage (min-width: 1100px) { .d-helper { display: none; } }
         .d-helper-icon {
             width: 28px; height: 28px;
             border-radius: 999px;
             background: var(--pastel-golden);
             border: 1.2px solid var(--ink);
             display: flex; align-items: center; justify-content: center;
-            font-size: 14px;
-            flex-shrink: 0;
+            font-size: 14px; flex-shrink: 0;
         }
         .d-helper b { color: var(--ink); font-weight: 800; }
 
+        /* ============================================================
+           Bottom CTA bar (non-landscape)
+           ============================================================ */
         .d-cta-bar {
             position: absolute;
             left: 0; right: 0; bottom: 0;
             padding: 14px 18px 22px;
             background: linear-gradient(to top, var(--bg-cream) 0%, var(--bg-cream) 64%, rgba(255,253,247,0) 100%);
         }
-        @container stage (min-width: 720px) {
-            .d-cta-bar { padding: 18px 32px 28px; }
-        }
+        @container stage (min-width: 720px) { .d-cta-bar { padding: 18px 32px 28px; } }
+        @container stage (min-width: 1100px) { .d-cta-bar { display: none; } }
         .d-cta-inner { max-width: 540px; margin: 0 auto; }
         @container stage (min-width: 1000px) { .d-cta-inner { max-width: 600px; } }
 
@@ -561,17 +567,250 @@
             font-family: inherit;
         }
 
-        /* Notes panel */
+        /* ============================================================
+           RIGHT DETAIL PANEL — landscape only
+           ============================================================ */
+        .d-detail {
+            background: #fff;
+            border: 1.5px solid var(--ink);
+            border-radius: 26px;
+            padding: 24px 26px 24px;
+            box-shadow: 4px 4px 0 var(--ink);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+            min-height: 100%;
+        }
+        .d-detail::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 90% 5%, var(--detail-tint, var(--pastel-sky)) 0%, transparent 38%),
+                radial-gradient(circle at 5% 95%, var(--pastel-golden) 0%, transparent 32%);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .d-detail > * { position: relative; z-index: 1; }
+
+        .d-detail-eyebrow {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 11px;
+            letter-spacing: 3.2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .d-detail-art {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 1.5px solid var(--ink);
+            border-radius: 18px;
+            background: var(--detail-tint, var(--pastel-sky));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 -4px 0 rgba(26,26,26,0.05);
+        }
+        .d-detail-art::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 22% 28%, rgba(255,255,255,0.6) 1px, transparent 1.5px),
+                radial-gradient(circle at 72% 72%, rgba(255,255,255,0.45) 1px, transparent 1.5px),
+                radial-gradient(circle at 88% 18%, rgba(255,255,255,0.5) 1px, transparent 1.5px);
+            background-size: 56px 56px, 48px 48px, 64px 64px;
+            opacity: 0.7;
+        }
+        .d-detail-art-emoji {
+            font-size: 88px;
+            line-height: 1;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12));
+            animation: bob 4s ease-in-out infinite;
+        }
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .d-detail-sparkle {
+            position: absolute;
+            font-size: 14px;
+            color: var(--gold);
+            animation: twinkle 2.4s ease-in-out infinite;
+        }
+        .d-detail-sparkle.s1 { top: 16%; right: 18%; animation-delay: 0s; }
+        .d-detail-sparkle.s2 { bottom: 22%; left: 20%; animation-delay: 0.8s; }
+        .d-detail-sparkle.s3 { top: 60%; right: 30%; animation-delay: 1.6s; }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .d-detail-name {
+            font-family: 'Fraunces', serif;
+            font-weight: 900;
+            font-size: 36px;
+            line-height: 1.0;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+            margin-top: -2px;
+        }
+        .d-detail-name em { font-style: italic; color: var(--periwinkle-deep); font-weight: 800; }
+        .d-detail-desc {
+            font-size: 14.5px;
+            color: var(--text-2);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .d-detail-stars {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--periwinkle-bg);
+            border: 1.5px solid var(--periwinkle-deep);
+            border-radius: 12px;
+        }
+        .d-detail-avatar {
+            width: 30px; height: 30px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #FFCDD2, #F48FB1);
+            border: 1.5px solid var(--ink);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Fraunces', serif; font-weight: 900;
+            font-size: 13px; color: var(--ink);
+            flex-shrink: 0;
+        }
+        .d-detail-stars-text {
+            font-size: 13px;
+            color: var(--ink);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .d-detail-stars-text small {
+            display: block;
+            font-family: 'Caveat', cursive;
+            font-size: 14px;
+            color: var(--text-2);
+            font-weight: 500;
+        }
+
+        .d-detail-pages {
+            background: rgba(255,255,255,0.6);
+            border: 1px dashed rgba(26,26,26,0.18);
+            border-radius: 14px;
+            padding: 12px 14px;
+        }
+        .d-detail-pages-title {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-3);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .d-detail-pages ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .d-detail-pages li {
+            display: grid;
+            grid-template-columns: 28px 1fr;
+            gap: 10px;
+            align-items: center;
+            font-size: 13.5px;
+            color: var(--ink);
+            font-weight: 600;
+        }
+        .d-detail-pages li::before {
+            content: counter(slide);
+            counter-increment: slide;
+            background: #fff;
+            border: 1.2px solid var(--ink);
+            color: var(--ink);
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 800;
+            font-size: 11px;
+            border-radius: 999px;
+            width: 22px; height: 22px;
+            display: flex; align-items: center; justify-content: center;
+            line-height: 1;
+        }
+        .d-detail-pages ul { counter-reset: slide; }
+
+        .d-detail-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--gold-deep, #5D4E0F);
+            background: var(--pastel-golden);
+            border: 1px solid var(--ink);
+            padding: 6px 12px;
+            border-radius: 999px;
+            align-self: flex-start;
+        }
+
+        .d-detail-cta {
+            margin-top: auto;
+            padding-top: 4px;
+        }
+        .d-detail-cta button {
+            width: 100%;
+            background: var(--periwinkle);
+            color: #fff;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            padding: 16px 16px;
+            border-radius: 18px;
+            border: 1.5px solid var(--ink);
+            box-shadow: 3px 3px 0 var(--ink);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px;
+        }
+        .d-detail-cta button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+        .d-detail-cta button svg { width: 14px; height: 14px; }
+        .d-detail-skip {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: none;
+            text-align: center;
+            margin-top: 8px;
+            padding: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-3);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Notes */
         .notes {
-            max-width: 820px;
-            margin: 32px auto 0;
+            max-width: 900px;
+            margin: 36px auto 0;
             padding: 0 16px;
         }
         .notes-card {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 18px;
-            padding: 18px 22px;
+            padding: 20px 24px;
         }
         .notes-card h3 {
             font-family: 'Fraunces', serif;
@@ -590,21 +829,19 @@
             margin-bottom: 8px;
         }
         .notes-card p:last-child { margin-bottom: 0; }
-        .notes-card .pros, .notes-card .cons {
+        .pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+        .pros, .cons {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
             font-size: 12px;
             font-weight: 800;
             letter-spacing: 0.6px;
             text-transform: uppercase;
             padding: 4px 10px;
             border-radius: 99px;
-            margin-right: 6px;
-            margin-top: 4px;
         }
-        .notes-card .pros { color: #C5E1A5; background: rgba(165,214,167,0.1); border: 1px solid rgba(165,214,167,0.25); }
-        .notes-card .cons { color: #FFCCBC; background: rgba(255,171,145,0.1); border: 1px solid rgba(255,171,145,0.25); }
+        .pros { color: #C5E1A5; background: rgba(165,214,167,0.1); border: 1px solid rgba(165,214,167,0.25); }
+        .cons { color: #FFCCBC; background: rgba(255,171,145,0.1); border: 1px solid rgba(255,171,145,0.25); }
 
         @media (prefers-reduced-motion: reduce) {
             * { transition: none !important; animation: none !important; }
@@ -613,164 +850,41 @@
 </head>
 <body>
 
-    <!-- ====================== Sticky review chrome ====================== -->
     <header class="reviewbar">
         <div class="reviewbar-inner">
             <div class="rb-title">Lesson Kickoff · Variation Review</div>
 
-            <div class="toggle-group center" id="variantToggle">
+            <div class="toggle-group" id="variantToggle">
                 <button class="toggle-btn active" data-v="catalog">Catalog</button>
                 <button class="toggle-btn" data-v="tinted">Tinted</button>
                 <button class="toggle-btn" data-v="editorial">Editorial</button>
             </div>
 
-            <div class="toggle-group center" id="deviceToggle">
+            <div class="toggle-group" id="deviceToggle">
                 <button class="toggle-btn active" data-d="phone">
                     <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="1" width="7" height="11" rx="1.5"/><circle cx="6.5" cy="10" r="0.5" fill="currentColor"/></svg>
                     Phone
                 </button>
-                <button class="toggle-btn" data-d="ipad">
-                    <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="2" width="10" height="9" rx="1"/></svg>
-                    iPad
+                <button class="toggle-btn" data-d="ipad-portrait">
+                    <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="1" width="8" height="11" rx="1"/></svg>
+                    iPad P
+                </button>
+                <button class="toggle-btn" data-d="ipad-landscape">
+                    <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="2.5" width="11" height="8" rx="1"/></svg>
+                    iPad L
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- ====================== Stage ====================== -->
     <main class="stage-area">
         <div class="stage-meta" id="stageMeta">
-            <h2 id="metaTitle">Catalog</h2>
-            <p id="metaDesc">Cards with emoji + name + a one-line lesson teaser. The baseline you said felt better.</p>
+            <h2 id="metaTitle">Catalog · Phone</h2>
+            <p id="metaDesc">Cards with emoji + name + a one-line lesson teaser.</p>
         </div>
 
         <div class="stage-wrap" id="stageWrap">
-            <div class="stage" id="stage" data-device="phone">
-
-                <!-- Variation A: Catalog -->
-                <section class="design catalog show" data-v="catalog">
-                    <div class="d-inner">
-                        <header class="d-topbar">
-                            <button class="d-back" aria-label="Back">
-                                <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 2 3 7 9 12"/></svg>
-                            </button>
-                            <span class="d-step">Step 6 of 8</span>
-                            <span class="d-who">Mia · 7</span>
-                        </header>
-                        <section class="d-hero">
-                            <p class="d-eyebrow">Tonight's lesson</p>
-                            <h1 class="d-title">Where should <em>Mia</em> start?</h1>
-                            <p class="d-sub">Pick one and Altys writes the lesson while you finish setup. <b>Mia stars in every page.</b></p>
-                        </section>
-                        <ul class="d-topics" role="listbox">
-                            <li class="topic" data-key="space" data-cta="Mia's Space lesson" style="--tint: var(--pastel-periwinkle);"><div class="topic-icon">🚀</div><div class="topic-name">Space</div><div class="topic-teaser">How rockets fly to space</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="dinosaurs" data-cta="Mia's Dinosaur lesson" style="--tint: var(--pastel-mint);"><div class="topic-icon">🦕</div><div class="topic-name">Dinosaurs</div><div class="topic-teaser">The biggest dinosaurs ever</div><div class="topic-star">★</div></li>
-                            <li class="topic selected" data-key="ocean" data-cta="Mia's Ocean lesson" style="--tint: var(--pastel-sky);"><div class="topic-icon">🌊</div><div class="topic-name">Ocean</div><div class="topic-teaser">Colorful fish in the deep sea</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="art" data-cta="Mia's Art lesson" style="--tint: var(--pastel-pink);"><div class="topic-icon">🎨</div><div class="topic-name">Art</div><div class="topic-teaser">Mixing colors and painting</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="science" data-cta="Mia's Science lesson" style="--tint: var(--pastel-golden);"><div class="topic-icon">🧬</div><div class="topic-name">Science</div><div class="topic-teaser">How rainbows appear in the sky</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="world" data-cta="Mia's World lesson" style="--tint: var(--pastel-coral);"><div class="topic-icon">🌍</div><div class="topic-name">World</div><div class="topic-teaser">Countries and their flags</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="music" data-cta="Mia's Music lesson" style="--tint: var(--pastel-lavender);"><div class="topic-icon">🎵</div><div class="topic-name">Music</div><div class="topic-teaser">Instruments and their sounds</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="math" data-cta="Mia's Math lesson" style="--tint: var(--pastel-peach);"><div class="topic-icon">🧮</div><div class="topic-name">Math</div><div class="topic-teaser">Fun with shapes and patterns</div><div class="topic-star">★</div></li>
-                        </ul>
-                        <div class="d-helper">
-                            <div class="d-helper-icon">✨</div>
-                            <div>Lesson ready in <b>~10 minutes</b>. We'll notify you when Mia's first lesson is ready to play.</div>
-                        </div>
-                    </div>
-                    <footer class="d-cta-bar">
-                        <div class="d-cta-inner">
-                            <button class="d-cta">
-                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5l1.5 4.5h4.5L10.5 9l1.5 4.5L8 11l-4 2.5L5.5 9 2 6h4.5z"/></svg>
-                                <span>Create <span data-cta-text>Mia's Ocean lesson</span></span>
-                            </button>
-                            <button class="d-skip">Not right now</button>
-                        </div>
-                    </footer>
-                </section>
-
-                <!-- Variation B: Tinted -->
-                <section class="design tinted" data-v="tinted">
-                    <div class="d-inner">
-                        <header class="d-topbar">
-                            <button class="d-back" aria-label="Back">
-                                <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 2 3 7 9 12"/></svg>
-                            </button>
-                            <span class="d-step">Step 6 of 8</span>
-                            <span class="d-who">Mia · 7</span>
-                        </header>
-                        <section class="d-hero">
-                            <p class="d-eyebrow">Tonight's lesson</p>
-                            <h1 class="d-title">Where should <em>Mia</em> start?</h1>
-                            <p class="d-sub">Pick one and Altys writes the lesson while you finish setup. <b>Mia stars in every page.</b></p>
-                        </section>
-                        <ul class="d-topics" role="listbox">
-                            <li class="topic" data-key="space" data-cta="Mia's Space lesson" style="--tint: var(--pastel-periwinkle);"><div class="topic-icon">🚀</div><div class="topic-name">Space</div><div class="topic-teaser">How rockets fly to space</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="dinosaurs" data-cta="Mia's Dinosaur lesson" style="--tint: var(--pastel-mint);"><div class="topic-icon">🦕</div><div class="topic-name">Dinosaurs</div><div class="topic-teaser">The biggest dinosaurs ever</div><div class="topic-star">★</div></li>
-                            <li class="topic selected" data-key="ocean" data-cta="Mia's Ocean lesson" style="--tint: var(--pastel-sky);"><div class="topic-icon">🌊</div><div class="topic-name">Ocean</div><div class="topic-teaser">Colorful fish in the deep sea</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="art" data-cta="Mia's Art lesson" style="--tint: var(--pastel-pink);"><div class="topic-icon">🎨</div><div class="topic-name">Art</div><div class="topic-teaser">Mixing colors and painting</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="science" data-cta="Mia's Science lesson" style="--tint: var(--pastel-golden);"><div class="topic-icon">🧬</div><div class="topic-name">Science</div><div class="topic-teaser">How rainbows appear in the sky</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="world" data-cta="Mia's World lesson" style="--tint: var(--pastel-coral);"><div class="topic-icon">🌍</div><div class="topic-name">World</div><div class="topic-teaser">Countries and their flags</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="music" data-cta="Mia's Music lesson" style="--tint: var(--pastel-lavender);"><div class="topic-icon">🎵</div><div class="topic-name">Music</div><div class="topic-teaser">Instruments and their sounds</div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="math" data-cta="Mia's Math lesson" style="--tint: var(--pastel-peach);"><div class="topic-icon">🧮</div><div class="topic-name">Math</div><div class="topic-teaser">Fun with shapes and patterns</div><div class="topic-star">★</div></li>
-                        </ul>
-                        <div class="d-helper">
-                            <div class="d-helper-icon">✨</div>
-                            <div>Lesson ready in <b>~10 minutes</b>. We'll notify you when Mia's first lesson is ready to play.</div>
-                        </div>
-                    </div>
-                    <footer class="d-cta-bar">
-                        <div class="d-cta-inner">
-                            <button class="d-cta">
-                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5l1.5 4.5h4.5L10.5 9l1.5 4.5L8 11l-4 2.5L5.5 9 2 6h4.5z"/></svg>
-                                <span>Create <span data-cta-text>Mia's Ocean lesson</span></span>
-                            </button>
-                            <button class="d-skip">Not right now</button>
-                        </div>
-                    </footer>
-                </section>
-
-                <!-- Variation C: Editorial -->
-                <section class="design editorial" data-v="editorial">
-                    <div class="d-inner">
-                        <header class="d-topbar">
-                            <button class="d-back" aria-label="Back">
-                                <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 2 3 7 9 12"/></svg>
-                            </button>
-                            <span class="d-step">Step 6 of 8</span>
-                            <span class="d-who">Mia · 7</span>
-                        </header>
-                        <section class="d-hero">
-                            <p class="d-eyebrow">Tonight's lesson</p>
-                            <h1 class="d-title">Where should <em>Mia</em> start?</h1>
-                            <p class="d-sub">Pick one and Altys writes the lesson while you finish setup. <b>Mia stars in every page.</b></p>
-                        </section>
-                        <ul class="d-topics" role="listbox">
-                            <li class="topic" data-key="space" data-cta="Mia's Space lesson" style="--tint: var(--pastel-periwinkle);"><div class="topic-icon">🚀</div><div class="topic-body"><div class="topic-name"><em>Space</em></div><div class="topic-teaser">How rockets fly to space</div></div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="dinosaurs" data-cta="Mia's Dinosaur lesson" style="--tint: var(--pastel-mint);"><div class="topic-icon">🦕</div><div class="topic-body"><div class="topic-name"><em>Dinosaurs</em></div><div class="topic-teaser">The biggest dinosaurs ever</div></div><div class="topic-star">★</div></li>
-                            <li class="topic selected" data-key="ocean" data-cta="Mia's Ocean lesson" style="--tint: var(--pastel-sky);"><div class="topic-icon">🌊</div><div class="topic-body"><div class="topic-name"><em>Ocean</em></div><div class="topic-teaser">Colorful fish in the deep sea</div></div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="art" data-cta="Mia's Art lesson" style="--tint: var(--pastel-pink);"><div class="topic-icon">🎨</div><div class="topic-body"><div class="topic-name"><em>Art</em></div><div class="topic-teaser">Mixing colors and painting</div></div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="science" data-cta="Mia's Science lesson" style="--tint: var(--pastel-golden);"><div class="topic-icon">🧬</div><div class="topic-body"><div class="topic-name"><em>Science</em></div><div class="topic-teaser">How rainbows appear in the sky</div></div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="world" data-cta="Mia's World lesson" style="--tint: var(--pastel-coral);"><div class="topic-icon">🌍</div><div class="topic-body"><div class="topic-name"><em>World</em></div><div class="topic-teaser">Countries and their flags</div></div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="music" data-cta="Mia's Music lesson" style="--tint: var(--pastel-lavender);"><div class="topic-icon">🎵</div><div class="topic-body"><div class="topic-name"><em>Music</em></div><div class="topic-teaser">Instruments and their sounds</div></div><div class="topic-star">★</div></li>
-                            <li class="topic" data-key="math" data-cta="Mia's Math lesson" style="--tint: var(--pastel-peach);"><div class="topic-icon">🧮</div><div class="topic-body"><div class="topic-name"><em>Math</em></div><div class="topic-teaser">Fun with shapes and patterns</div></div><div class="topic-star">★</div></li>
-                        </ul>
-                        <div class="d-helper">
-                            <div class="d-helper-icon">✨</div>
-                            <div>Lesson ready in <b>~10 minutes</b>. We'll notify you when Mia's first lesson is ready to play.</div>
-                        </div>
-                    </div>
-                    <footer class="d-cta-bar">
-                        <div class="d-cta-inner">
-                            <button class="d-cta">
-                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5l1.5 4.5h4.5L10.5 9l1.5 4.5L8 11l-4 2.5L5.5 9 2 6h4.5z"/></svg>
-                                <span>Create <span data-cta-text>Mia's Ocean lesson</span></span>
-                            </button>
-                            <button class="d-skip">Not right now</button>
-                        </div>
-                    </footer>
-                </section>
-
-            </div><!-- /.stage -->
+            <div class="stage" id="stage" data-device="phone"></div>
         </div>
 
         <div class="stage-caption" id="stageCaption">Phone · 412 px</div>
@@ -778,117 +892,274 @@
         <div class="notes">
             <div class="notes-card" id="notesCard">
                 <h3 id="notesTitle">A · Catalog</h3>
-                <p id="notesBody">White cards with a pastel emoji tile, name, and a one-line lesson teaser drawn from the real phrase bank. Selection: periwinkle border + bg + ★ badge. CTA renames live ("Create Mia's Ocean lesson"). Reads as a clean catalog — all 8 visible at a glance.</p>
-                <div>
-                    <span class="pros">All 8 visible</span>
-                    <span class="pros">Self-explaining cards</span>
-                    <span class="pros">Restrained</span>
-                </div>
-                <div>
-                    <span class="cons">Most "AI grid" of the three</span>
-                </div>
+                <p id="notesBody">White cards with a pastel emoji tile, name, and a one-line teaser. iPad landscape splits the screen: topic list on the left, rich preview on the right.</p>
+                <div class="pill-row" id="notesPros"></div>
+                <div class="pill-row" id="notesCons"></div>
             </div>
         </div>
     </main>
 
+    <!-- Hidden template for the design — duplicated by JS for each variant -->
+    <template id="designTemplate">
+        <section class="design">
+            <div class="d-layout">
+
+                <div class="d-left">
+                    <header class="d-topbar">
+                        <button class="d-back" aria-label="Back">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="#1A1A1A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 2 3 7 9 12"/></svg>
+                        </button>
+                        <span class="d-step">Step 6 of 8</span>
+                        <span class="d-who">Mia · 7</span>
+                    </header>
+
+                    <section class="d-hero">
+                        <p class="d-eyebrow">Tonight's lesson</p>
+                        <h1 class="d-title">Where should <em>Mia</em> start?</h1>
+                        <p class="d-sub">Pick one and Altys writes the lesson while you finish setup. <b>Mia stars in every page.</b></p>
+                    </section>
+
+                    <ul class="d-topics" role="listbox"></ul>
+
+                    <div class="d-helper">
+                        <div class="d-helper-icon">✨</div>
+                        <div>Lesson ready in <b>~10 minutes</b>. We'll notify you when Mia's first lesson is ready to play.</div>
+                    </div>
+                </div>
+
+                <aside class="d-right">
+                    <div class="d-detail">
+                        <p class="d-detail-eyebrow" data-detail-eyebrow>Tonight's lesson · Ocean</p>
+
+                        <div class="d-detail-art" data-detail-art>
+                            <span class="d-detail-sparkle s1">✦</span>
+                            <span class="d-detail-sparkle s2">✦</span>
+                            <span class="d-detail-sparkle s3">✦</span>
+                            <span class="d-detail-art-emoji" data-detail-emoji>🌊</span>
+                        </div>
+
+                        <h2 class="d-detail-name"><em data-detail-name>Ocean</em></h2>
+                        <p class="d-detail-desc" data-detail-desc>Colorful fish, deep-sea creatures, and how coral reefs are cities of color. Mia stars in every page.</p>
+
+                        <div class="d-detail-stars">
+                            <div class="d-detail-avatar">M</div>
+                            <div class="d-detail-stars-text">
+                                Mia stars in every page
+                                <small>her avatar's already in</small>
+                            </div>
+                        </div>
+
+                        <div class="d-detail-pages">
+                            <div class="d-detail-pages-title">What's inside</div>
+                            <ul data-detail-slides>
+                                <li>Colorful fish in the ocean</li>
+                                <li>Dolphins, whales, and sea turtles</li>
+                                <li>What lives at the bottom of the sea</li>
+                            </ul>
+                        </div>
+
+                        <div class="d-detail-pill">⚡ Ready in ~10 min</div>
+
+                        <div class="d-detail-cta">
+                            <button>
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5l1.5 4.5h4.5L10.5 9l1.5 4.5L8 11l-4 2.5L5.5 9 2 6h4.5z"/></svg>
+                                <span>Create <span data-cta-text>Mia's Ocean lesson</span></span>
+                            </button>
+                            <button class="d-detail-skip">Not right now</button>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+
+            <footer class="d-cta-bar">
+                <div class="d-cta-inner">
+                    <button class="d-cta">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5l1.5 4.5h4.5L10.5 9l1.5 4.5L8 11l-4 2.5L5.5 9 2 6h4.5z"/></svg>
+                        <span>Create <span data-cta-text>Mia's Ocean lesson</span></span>
+                    </button>
+                    <button class="d-skip">Not right now</button>
+                </div>
+            </footer>
+        </section>
+    </template>
+
     <script>
-        const stage = document.getElementById('stage');
-        const stageWrap = document.getElementById('stageWrap');
-        const stageCaption = document.getElementById('stageCaption');
-        const metaTitle = document.getElementById('metaTitle');
-        const metaDesc = document.getElementById('metaDesc');
-        const notesTitle = document.getElementById('notesTitle');
-        const notesBody = document.getElementById('notesBody');
+        // ===== Topic data — pulled from real TopicCategory.swift phrase bank =====
+        const TOPIC_DATA = [
+            { key: 'space',     emoji: '🚀', name: 'Space',     teaser: 'How rockets fly to space',         tint: 'var(--pastel-periwinkle)', desc: 'Rockets, planets, and the wild ride from Earth to the stars. Mia stars in every page.', slides: ['How rockets fly to space', 'The planets in our solar system', 'What astronauts do in space'] },
+            { key: 'dinosaurs', emoji: '🦕', name: 'Dinosaurs', teaser: 'The biggest dinosaurs ever',       tint: 'var(--pastel-mint)',       desc: 'T-Rex, Triceratops, and the prehistoric world. Mia stars in every page.', slides: ['The biggest dinosaurs ever', 'What dinosaurs ate for dinner', 'Baby dinosaurs and their families'] },
+            { key: 'ocean',     emoji: '🌊', name: 'Ocean',     teaser: 'Colorful fish in the deep sea',    tint: 'var(--pastel-sky)',        desc: 'Colorful fish, deep-sea creatures, and how coral reefs are cities of color. Mia stars in every page.', slides: ['Colorful fish in the ocean', 'Dolphins, whales, and sea turtles', 'What lives at the bottom of the sea'] },
+            { key: 'art',       emoji: '🎨', name: 'Art',       teaser: 'Mixing colors and painting',       tint: 'var(--pastel-pink)',       desc: 'Brushstrokes, famous painters, and what makes a picture sing. Mia stars in every page.', slides: ['Mixing colors and painting', 'Famous artists and their paintings', 'Drawing animals and nature'] },
+            { key: 'science',   emoji: '🧬', name: 'Science',   teaser: 'How rainbows appear in the sky',   tint: 'var(--pastel-golden)',     desc: 'Rainbows, experiments, and the everyday magic of how the world works. Mia stars in every page.', slides: ['How rainbows appear in the sky', 'Fun experiments you can do at home', 'How plants grow from tiny seeds'] },
+            { key: 'world',     emoji: '🌍', name: 'World',     teaser: 'Countries and their flags',        tint: 'var(--pastel-coral)',      desc: 'Continents, flags, and how kids around the planet live, eat, and play. Mia stars in every page.', slides: ['Countries and their flags', 'How kids live around the world', 'Amazing animals from every continent'] },
+            { key: 'music',     emoji: '🎵', name: 'Music',     teaser: 'Instruments and their sounds',     tint: 'var(--pastel-lavender)',   desc: 'Instruments, songs from around the world, and the science behind sound. Mia stars in every page.', slides: ['Musical instruments and their sounds', 'Singing and rhythm for beginners', 'Music from around the world'] },
+            { key: 'math',      emoji: '🧮', name: 'Math',      teaser: 'Fun with shapes and patterns',     tint: 'var(--pastel-peach)',      desc: 'Shapes, patterns, and number games that turn math into play. Mia stars in every page.', slides: ['Fun with shapes and patterns', 'Counting and numbers in nature', 'Math puzzles and games'] }
+        ];
 
         const VARIANTS = {
             catalog: {
                 title: 'Catalog',
-                desc: 'Cards with emoji + name + a one-line lesson teaser. The baseline you said felt better.',
+                desc: 'White cards with a pastel emoji tile, name, and one-line teaser.',
                 notesTitle: 'A · Catalog',
-                notes: "White cards with a pastel emoji tile, name, and a one-line lesson teaser drawn from the real phrase bank. Selection: periwinkle border + bg + ★ badge. CTA renames live (\"Create Mia's Ocean lesson\"). Reads as a clean catalog — all 8 visible at a glance.",
-                pros: ['All 8 visible', 'Self-explaining cards', 'Restrained'],
+                notes: 'Cleanest of the three. White cards, pastel emoji tiles, one-line teaser drawn from the real phrase bank. Selection is unambiguous (periwinkle treatment + ★ badge). Reads as a focused list.',
+                pros: ['All 8 visible', 'Self-explaining', 'Restrained'],
                 cons: ['Most "AI grid" of the three']
             },
             tinted: {
                 title: 'Tinted',
-                desc: 'Each topic owns its color — the whole card gets the pastel. More personality, slightly more saturated.',
+                desc: 'Each topic owns its color — the whole card gets the pastel.',
                 notesTitle: 'B · Tinted',
-                notes: "Same information, more color. Each topic's pastel becomes the card background; emoji floats free without a tile; the topic name is set in Fraunces serif for a more editorial register. Selection: thicker periwinkle border + inner white outline. Reads warmer, more playful, but still grown-up.",
-                pros: ['More personality', 'Color-coded recall', 'Still all 8 visible'],
-                cons: ['Heavier color load', 'Less room for the teaser line']
+                notes: 'Same info, more color. The whole card adopts the topic\'s pastel; emoji floats free without a tile; topic name is set in Fraunces serif for an editorial register. Warmer, more playful.',
+                pros: ['Color-coded recall', 'More personality', 'Fraunces register'],
+                cons: ['Heavier color load', 'Less room for teaser']
             },
             editorial: {
                 title: 'Editorial',
-                desc: 'Magazine-style horizontal rows. One column on phone, two on iPad. More breathing room per card, less density.',
+                desc: 'Magazine-style horizontal rows. Single column on phone, two on iPad.',
                 notesTitle: 'C · Editorial',
-                notes: 'Horizontal cards: emoji tile on the left, Fraunces italic title and teaser on the right. Single column on phone, two columns on iPad — uses the tablet width well rather than just stretching the phone grid. Feels curated, slightly slower to scan but easier to read.',
-                pros: ['Generous spacing', 'Best on iPad', 'Easy to scan'],
-                cons: ['Phone needs more scroll', 'Fewer cards on screen at once']
+                notes: 'Horizontal rows: emoji tile on the left, Fraunces italic title and teaser on the right. Better breathing room. In landscape, becomes a single dense list — pairs perfectly with the right-side preview panel.',
+                pros: ['Generous spacing', 'Easy to scan', 'Best on landscape iPad'],
+                cons: ['Phone needs more scroll', 'Less density per screen']
             }
         };
 
-        // ----- Variation switcher
-        document.querySelectorAll('#variantToggle .toggle-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('#variantToggle .toggle-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const v = btn.dataset.v;
-                document.querySelectorAll('.design').forEach(d => d.classList.toggle('show', d.dataset.v === v));
-                const meta = VARIANTS[v];
-                metaTitle.textContent = meta.title;
-                metaDesc.textContent = meta.desc;
-                notesTitle.textContent = meta.notesTitle;
-                notesBody.textContent = meta.notes;
-                const notesCard = document.getElementById('notesCard');
-                const oldPills = notesCard.querySelectorAll('.pros, .cons');
-                oldPills.forEach(p => p.parentElement.remove());
-                const prosRow = document.createElement('div');
-                meta.pros.forEach(p => { const s = document.createElement('span'); s.className = 'pros'; s.textContent = p; prosRow.appendChild(s); });
-                const consRow = document.createElement('div');
-                meta.cons.forEach(c => { const s = document.createElement('span'); s.className = 'cons'; s.textContent = c; consRow.appendChild(s); });
-                notesCard.appendChild(prosRow);
-                notesCard.appendChild(consRow);
+        // ===== Build the 3 design instances =====
+        const stage = document.getElementById('stage');
+        const stageWrap = document.getElementById('stageWrap');
+        const stageCaption = document.getElementById('stageCaption');
+        const tpl = document.getElementById('designTemplate');
+
+        Object.keys(VARIANTS).forEach((key, i) => {
+            const node = tpl.content.cloneNode(true);
+            const section = node.querySelector('.design');
+            section.classList.add(key);
+            section.dataset.v = key;
+            if (i === 0) section.classList.add('show');
+
+            const ul = section.querySelector('.d-topics');
+            TOPIC_DATA.forEach((t, idx) => {
+                const li = document.createElement('li');
+                li.className = 'topic' + (t.key === 'ocean' ? ' selected' : '');
+                li.dataset.key = t.key;
+                li.dataset.cta = `Mia's ${t.name} lesson`;
+                li.style.setProperty('--tint', t.tint);
+
+                if (key === 'editorial') {
+                    li.innerHTML = `
+                        <div class="topic-icon">${t.emoji}</div>
+                        <div class="topic-body">
+                            <div class="topic-name"><em>${t.name}</em></div>
+                            <div class="topic-teaser">${t.teaser}</div>
+                        </div>
+                        <div class="topic-star">★</div>
+                    `;
+                } else if (key === 'tinted') {
+                    li.innerHTML = `
+                        <div class="topic-icon">${t.emoji}</div>
+                        <div class="topic-body">
+                            <div class="topic-name">${t.name}</div>
+                            <div class="topic-teaser">${t.teaser}</div>
+                        </div>
+                        <div class="topic-star">★</div>
+                    `;
+                } else {
+                    li.innerHTML = `
+                        <div class="topic-icon">${t.emoji}</div>
+                        <div class="topic-body">
+                            <div class="topic-name">${t.name}</div>
+                            <div class="topic-teaser">${t.teaser}</div>
+                        </div>
+                        <div class="topic-star">★</div>
+                    `;
+                }
+                ul.appendChild(li);
             });
+
+            stage.appendChild(section);
         });
 
-        // ----- Device toggle
-        document.querySelectorAll('#deviceToggle .toggle-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('#deviceToggle .toggle-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const d = btn.dataset.d;
-                stage.dataset.device = d;
-                stageWrap.classList.toggle('ipad-mode', d === 'ipad');
-                stageCaption.textContent = d === 'phone' ? 'Phone · 412 px' : 'iPad · 820 px (preview)';
-                computeIpadScale();
-            });
-        });
+        // ===== Selection logic per design =====
+        function applyTopic(designEl, topicKey) {
+            const data = TOPIC_DATA.find(t => t.key === topicKey);
+            if (!data) return;
 
-        // ----- iPad scale (when viewport is narrower than 820 + padding)
-        function computeIpadScale() {
-            if (stage.dataset.device !== 'ipad') return;
-            const vw = window.innerWidth;
-            const target = 820;
-            const padding = 40;
-            const scale = vw < (target + padding) ? Math.max(0.36, (vw - padding) / target) : 1;
-            stage.style.setProperty('--ipad-scale', scale.toFixed(3));
+            designEl.querySelectorAll('.topic').forEach(t => t.classList.toggle('selected', t.dataset.key === topicKey));
+
+            const detail = designEl.querySelector('.d-detail');
+            if (detail) {
+                detail.style.setProperty('--detail-tint', data.tint);
+                detail.querySelector('[data-detail-eyebrow]').textContent = `Tonight's lesson · ${data.name}`;
+                detail.querySelector('[data-detail-emoji]').textContent = data.emoji;
+                detail.querySelector('[data-detail-name]').textContent = data.name;
+                detail.querySelector('[data-detail-desc]').textContent = data.desc;
+                const slidesUl = detail.querySelector('[data-detail-slides]');
+                slidesUl.innerHTML = data.slides.map(s => `<li>${s}</li>`).join('');
+            }
+
+            designEl.querySelectorAll('[data-cta-text]').forEach(el => {
+                el.textContent = `Mia's ${data.name} lesson`;
+            });
+
+            if (window.navigator.vibrate) window.navigator.vibrate(8);
         }
-        window.addEventListener('resize', computeIpadScale);
-        computeIpadScale();
 
-        // ----- Topic selection (within each variant)
-        document.querySelectorAll('.design').forEach(design => {
-            const topics = design.querySelectorAll('.topic');
-            const ctaText = design.querySelector('[data-cta-text]');
-            topics.forEach(t => {
-                t.addEventListener('click', () => {
-                    topics.forEach(x => x.classList.remove('selected'));
-                    t.classList.add('selected');
-                    if (ctaText) ctaText.textContent = t.dataset.cta;
-                    if (window.navigator.vibrate) window.navigator.vibrate(8);
-                });
+        document.querySelectorAll('.design').forEach(designEl => {
+            designEl.addEventListener('click', e => {
+                const topic = e.target.closest('.topic');
+                if (topic) applyTopic(designEl, topic.dataset.key);
             });
+            applyTopic(designEl, 'ocean');
         });
+
+        // ===== Toggles =====
+        function setVariant(v) {
+            document.querySelectorAll('#variantToggle .toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.v === v));
+            document.querySelectorAll('.design').forEach(d => d.classList.toggle('show', d.dataset.v === v));
+            updateMeta();
+        }
+        function setDevice(d) {
+            document.querySelectorAll('#deviceToggle .toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.d === d));
+            stage.dataset.device = d;
+            stageWrap.className = 'stage-wrap ' + (
+                d === 'phone' ? '' :
+                d === 'ipad-portrait' ? 'ipad-portrait-mode scaled-mode' :
+                'ipad-landscape-mode scaled-mode'
+            );
+            updateMeta();
+            computeScale();
+        }
+        function updateMeta() {
+            const v = document.querySelector('#variantToggle .active').dataset.v;
+            const d = document.querySelector('#deviceToggle .active').dataset.d;
+            const meta = VARIANTS[v];
+            const deviceLabel = d === 'phone' ? 'Phone' : (d === 'ipad-portrait' ? 'iPad · Portrait' : 'iPad · Landscape');
+            document.getElementById('metaTitle').innerHTML = `${meta.title} · <em>${deviceLabel}</em>`;
+            document.getElementById('metaDesc').textContent = meta.desc;
+            document.getElementById('notesTitle').textContent = meta.notesTitle;
+            document.getElementById('notesBody').textContent = meta.notes;
+            const prosRow = document.getElementById('notesPros');
+            const consRow = document.getElementById('notesCons');
+            prosRow.innerHTML = meta.pros.map(p => `<span class="pros">${p}</span>`).join('');
+            consRow.innerHTML = meta.cons.map(c => `<span class="cons">${c}</span>`).join('');
+            stageCaption.textContent = d === 'phone' ? 'Phone · 412 px' :
+                (d === 'ipad-portrait' ? 'iPad · 820 × 1100 (preview)' : 'iPad · 1180 × 820 (preview)');
+        }
+        function computeScale() {
+            const d = stage.dataset.device;
+            if (d === 'phone') return;
+            const target = d === 'ipad-portrait' ? 820 : 1180;
+            const padding = 32;
+            const vw = window.innerWidth;
+            const scale = vw < (target + padding) ? Math.max(0.30, (vw - padding) / target) : 1;
+            stage.style.setProperty('--scale', scale.toFixed(3));
+        }
+
+        document.querySelectorAll('#variantToggle .toggle-btn').forEach(btn => btn.addEventListener('click', () => setVariant(btn.dataset.v)));
+        document.querySelectorAll('#deviceToggle .toggle-btn').forEach(btn => btn.addEventListener('click', () => setDevice(btn.dataset.d)));
+        window.addEventListener('resize', computeScale);
+        computeScale();
+        updateMeta();
     </script>
 </body>
 </html>
