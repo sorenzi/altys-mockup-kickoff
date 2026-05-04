@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Altys · Character Picker Brainstorm</title>
+<title>Altys · Character Picker · Variation A (refined)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&display=swap" rel="stylesheet">
@@ -42,11 +42,7 @@
 
   /* ─────────────────  PAGE LAYOUT ─────────────────  */
 
-  .page {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 32px 20px 80px;
-  }
+  .page { max-width: 1320px; margin: 0 auto; padding: 32px 20px 80px; }
 
   header.intro {
     border-bottom: var(--border);
@@ -73,90 +69,16 @@
     margin-top: 16px;
     color: var(--ink-soft);
     font-size: 16px;
-    max-width: 640px;
+    max-width: 720px;
   }
-
-  .lore {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 32px 0 64px;
-  }
-  @media (max-width: 720px) { .lore { grid-template-columns: 1fr; } }
-
-  .lore-card {
-    border: var(--border);
-    border-radius: 18px;
-    padding: 20px;
-    background: var(--cream-2);
-    box-shadow: var(--shadow);
-    position: relative;
-  }
-  .lore-card.luma { background: linear-gradient(135deg, var(--luma-from), var(--luma-mid)); }
-  .lore-card.kai  { background: linear-gradient(135deg, var(--kai-from), var(--kai-mid)); color: white; }
-  .lore-card .name {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 36px;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-  .lore-card.kai .name { color: white; }
-  .lore-card .tagline {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 18px;
-    margin-top: 6px;
-    margin-bottom: 14px;
-  }
-  .lore-card h4 {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-top: 12px;
-    margin-bottom: 6px;
-    opacity: 0.7;
-  }
-  .lore-card ul { list-style: none; font-size: 14px; }
-  .lore-card li { padding: 2px 0; }
-  .lore-card li::before { content: "— "; opacity: 0.7; }
-
-  /* ─────────────────  VARIATION SECTION  ───────────────── */
-
-  section.variant {
-    margin-bottom: 96px;
-    padding-top: 32px;
-    border-top: 2px dashed rgba(0,0,0,0.15);
-  }
-  section.variant > .v-header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
-  }
-  section.variant > .v-header .num {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 88px;
-    line-height: 1;
-    color: var(--periwinkle);
-    -webkit-text-stroke: 2px var(--ink);
-    letter-spacing: -0.04em;
-  }
-  section.variant > .v-header .title {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
-    font-size: clamp(28px, 4vw, 44px);
-    letter-spacing: -0.02em;
-  }
-  section.variant > p.sub {
+  header.intro ul.refinements {
+    margin-top: 16px;
+    padding-left: 20px;
     color: var(--ink-soft);
     font-size: 15px;
-    max-width: 720px;
-    margin-bottom: 32px;
-    margin-left: 4px;
   }
+  header.intro ul.refinements li { padding: 4px 0; }
+  header.intro ul.refinements li strong { color: var(--ink); }
 
   .frames {
     display: flex;
@@ -172,6 +94,13 @@
     margin-bottom: 8px;
     margin-left: 4px;
   }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 390px 390px;
+    gap: 24px;
+  }
+  @media (max-width: 880px) { .row-2 { grid-template-columns: 1fr; } }
 
   /* PHONE FRAME */
   .phone-frame {
@@ -226,11 +155,9 @@
     background: white;
     border: var(--border);
     box-shadow: var(--shadow-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700;
+    z-index: 5;
   }
   .ipad-screen .nav-back { top: 24px; left: 24px; }
 
@@ -252,25 +179,9 @@
   }
   .cta.disabled { opacity: 0.4; }
 
-  .pill-row { display: flex; gap: 6px; flex-wrap: wrap; }
-  .pill {
-    background: rgba(255,255,255,0.65);
-    border: 1px solid rgba(0,0,0,0.15);
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 600;
-    backdrop-filter: blur(8px);
-  }
-
   .lore-list { list-style: none; }
-  .lore-list li {
-    font-size: 13px;
-    padding: 3px 0;
-    line-height: 1.35;
-  }
+  .lore-list li { font-size: 13px; padding: 3px 0; line-height: 1.35; }
   .lore-list li::before { content: "— "; opacity: 0.7; }
-
   .lore-list-h4 {
     font-size: 10px;
     font-weight: 700;
@@ -281,59 +192,127 @@
     opacity: 0.7;
   }
 
-  /* Kai stylized portrait (no real asset shipped yet) */
+  /* Kai stylized portrait placeholder */
   .kai-silhouette {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     background:
       radial-gradient(circle at 50% 36%, var(--kai-mid) 0%, transparent 26%),
       radial-gradient(ellipse 60% 40% at 50% 84%, var(--kai-mid) 0%, transparent 50%),
       radial-gradient(circle at 50% 50%, var(--kai-to) 0%, var(--kai-deep) 80%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     color: rgba(255,255,255,0.85);
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 13px;
+    font-family: 'Fraunces', serif; font-style: italic; font-size: 13px;
     position: relative;
   }
   .kai-silhouette::after {
     content: "[ Kai art coming ]";
-    position: absolute;
-    bottom: 16px;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    opacity: 0.5;
-  }
-
-  .kai-portrait {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    position: absolute; bottom: 16px;
+    font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; opacity: 0.5;
   }
 
   /* ════════════════════════════════════════════════════════════
-     VARIATION A  ·  HERO STAGE  (carousel, single character)
+                STORY-BAR PROGRESS (auto-advance cue)
+     ════════════════════════════════════════════════════════════ */
+
+  .story-bars {
+    position: absolute;
+    top: 64px; left: 20px; right: 20px;
+    display: flex;
+    gap: 6px;
+    z-index: 4;
+  }
+  .ipad-screen .story-bars { top: 28px; left: 28px; right: 38vw; max-width: 60%; }
+
+  .story-bar {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .story-bar.complete { background: rgba(255,255,255,0.95); }
+  .story-bar .fill {
+    position: absolute;
+    inset: 0;
+    background: white;
+    width: 0;
+  }
+  .story-bar.active .fill {
+    animation: storyfill 7s linear forwards;
+  }
+  .story-bar.partial .fill { width: 38%; background: white; }
+  @keyframes storyfill { from { width: 0; } to { width: 100%; } }
+
+  /* ════════════════════════════════════════════════════════════
+                MEET-NEXT / MEET-PREV CHIP
+     ════════════════════════════════════════════════════════════ */
+
+  .meet-chip {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: var(--border);
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 3;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .meet-chip .swatch {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .meet-chip .swatch.kai { background: linear-gradient(135deg, var(--kai-mid), var(--kai-deep)); }
+  .meet-chip .swatch.luma { background: linear-gradient(135deg, var(--luma-from), var(--luma-to)); }
+  .meet-chip.left { right: auto; left: 12px; flex-direction: row-reverse; }
+
+  .ipad-screen .meet-chip {
+    right: 38vw;
+    margin-right: 24px;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  .ipad-screen .meet-chip.left { right: auto; left: 24px; margin-right: 0; }
+
+  /* ════════════════════════════════════════════════════════════
+                VARIATION A — STAGE
      ════════════════════════════════════════════════════════════ */
 
   /* PHONE — A */
   .va-phone .stage {
     height: 480px;
-    background: linear-gradient(160deg, var(--luma-from) 0%, var(--luma-mid) 50%, var(--luma-to) 100%);
     position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
   }
+  .va-phone .stage.luma { background: linear-gradient(160deg, var(--luma-from) 0%, var(--luma-mid) 50%, var(--luma-to) 100%); }
+  .va-phone .stage.kai  { background: linear-gradient(160deg, var(--kai-from) 0%, var(--kai-mid) 50%, var(--kai-to) 100%); }
   .va-phone .stage img {
-    height: 95%;
-    width: auto;
+    width: 88%;
+    max-height: 92%;
+    height: auto;
     object-fit: contain;
-    object-position: bottom;
+    object-position: center bottom;
+    margin-bottom: -8px;
     z-index: 1;
+    /* Knock out the white background of the cutout so the colored stage shows through */
+    mix-blend-mode: multiply;
   }
   .va-phone .name-strip {
     position: absolute;
@@ -349,34 +328,11 @@
     -webkit-text-stroke: 1.5px var(--ink);
     pointer-events: none;
   }
-  .va-phone .arrows {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 12px;
-    transform: translateY(-50%);
+  .va-phone .stage.kai .name-strip { color: rgba(255,255,255,0.95); }
+  .va-phone .stage.kai .kai-art {
+    width: 100%; height: 100%; position: absolute; inset: 0;
+    z-index: 1;
   }
-  .va-phone .arrows .arrow {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(255,255,255,0.85);
-    border: var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
-    box-shadow: var(--shadow-sm);
-  }
-  .va-phone .arrows .arrow.dim { opacity: 0.35; }
-  .va-phone .dots {
-    position: absolute;
-    top: 70px; left: 0; right: 0;
-    display: flex; justify-content: center; gap: 6px;
-  }
-  .va-phone .dots span {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: rgba(0,0,0,0.25);
-  }
-  .va-phone .dots span.on { background: var(--ink); width: 24px; border-radius: 4px; }
 
   .va-phone .lore-sheet {
     background: var(--cream);
@@ -410,17 +366,17 @@
     height: 100%;
   }
   .va-ipad .stage {
-    background: linear-gradient(160deg, var(--luma-from) 0%, var(--luma-mid) 50%, var(--luma-to) 100%);
     position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
   }
+  .va-ipad .stage.luma { background: linear-gradient(160deg, var(--luma-from) 0%, var(--luma-mid) 50%, var(--luma-to) 100%); }
+  .va-ipad .stage.kai  { background: linear-gradient(160deg, var(--kai-from) 0%, var(--kai-mid) 50%, var(--kai-to) 100%); }
   .va-ipad .stage .name-bg {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -55%);
     font-family: 'Fraunces', serif;
     font-weight: 900;
@@ -433,23 +389,16 @@
     pointer-events: none;
     white-space: nowrap;
   }
+  .va-ipad .stage.kai .name-bg { color: rgba(255,255,255,0.85); }
   .va-ipad .stage img {
-    height: 95%;
-    width: auto;
-    max-width: 80%;
-    object-fit: contain;
-    object-position: bottom;
+    height: 95%; width: auto; max-width: 80%;
+    object-fit: contain; object-position: bottom;
     z-index: 1;
   }
-  .va-ipad .stage .dots {
-    position: absolute;
-    bottom: 32px; left: 0; right: 0;
-    display: flex; justify-content: center; gap: 8px;
-    z-index: 2;
+  .va-ipad .stage .kai-art-full {
+    width: 80%; height: 95%;
+    z-index: 1;
   }
-  .va-ipad .stage .dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.3); }
-  .va-ipad .stage .dots span.on { background: var(--ink); width: 28px; border-radius: 6px; }
-
   .va-ipad .panel {
     background: var(--cream);
     padding: 56px 40px 32px;
@@ -483,310 +432,13 @@
     margin-top: auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-  }
-  .va-ipad .panel .arrow-btn {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: white;
-    border: var(--border);
-    box-shadow: var(--shadow-sm);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 18px;
-  }
-
-  /* ════════════════════════════════════════════════════════════
-     VARIATION B  ·  TWO-UP SPLIT  (both visible, expand on tap)
-     ════════════════════════════════════════════════════════════ */
-
-  .vb-phone, .vb-phone-2 { padding-top: 80px; }
-  .vb-phone .header, .vb-phone-2 .header {
-    padding: 0 24px 16px;
-  }
-  .vb-phone .header h1, .vb-phone-2 .header h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 32px;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-  .vb-phone .header p, .vb-phone-2 .header p {
-    color: var(--ink-soft);
-    margin-top: 6px;
-    font-size: 14px;
-  }
-
-  .vb-card {
-    margin: 0 16px 12px;
-    border-radius: 24px;
-    border: var(--border);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    position: relative;
-  }
-  .vb-card.luma { background: linear-gradient(135deg, var(--luma-from), var(--luma-to)); height: 280px; }
-  .vb-card.kai  { background: linear-gradient(135deg, var(--kai-mid), var(--kai-deep)); height: 280px; color: white; }
-
-  .vb-card .portrait {
-    position: absolute;
-    right: -10px; bottom: -10px;
-    width: 55%; height: 115%;
-    overflow: hidden;
-  }
-  .vb-card .portrait img {
-    width: auto;
-    height: 100%;
-    object-fit: contain;
-    object-position: right bottom;
-    position: absolute;
-    right: 0; bottom: 0;
-  }
-  .vb-card .body {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    width: 60%;
-  }
-  .vb-card .name {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 56px;
-    line-height: 0.85;
-    letter-spacing: -0.03em;
-  }
-  .vb-card .tagline {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.2;
-    margin-top: 8px;
-  }
-  .vb-card .pill-row { margin-top: auto; }
-  .vb-card.kai .pill {
-    background: rgba(255,255,255,0.18);
-    border-color: rgba(255,255,255,0.3);
-    color: white;
-  }
-
-  /* expanded state — Luma selected, Kai shrunk */
-  .vb-phone-2 .vb-card.luma { height: 460px; }
-  .vb-phone-2 .vb-card.luma .body { width: 56%; }
-  .vb-phone-2 .vb-card.luma .body .lore-extra { display: block; margin-top: 16px; }
-  .vb-phone-2 .vb-card.luma .body .lore-extra h4 {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-    margin-bottom: 4px; opacity: 0.7;
-  }
-  .vb-phone-2 .vb-card.luma .body .lore-extra ul { list-style: none; font-size: 12px; line-height: 1.4; margin-bottom: 10px; }
-  .vb-phone-2 .vb-card.luma .body .lore-extra li::before { content: "— "; opacity: 0.7; }
-  .vb-phone-2 .vb-card.luma .portrait { height: 100%; right: -10px; }
-  .vb-phone-2 .vb-card.luma .selected-tag {
-    position: absolute;
-    top: 16px; left: 16px;
-    background: var(--ink);
-    color: white;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 999px;
-  }
-
-  .vb-phone-2 .vb-card.kai { height: 110px; }
-  .vb-phone-2 .vb-card.kai .body { width: 70%; padding: 20px 24px; }
-  .vb-phone-2 .vb-card.kai .name { font-size: 28px; }
-  .vb-phone-2 .vb-card.kai .tagline { font-size: 13px; }
-  .vb-phone-2 .vb-card.kai .pill-row { display: none; }
-  .vb-phone-2 .vb-card.kai .portrait { width: 30%; height: 100%; }
-
-  .vb-phone-2 .cta-bottom {
-    position: absolute;
-    bottom: 32px; left: 16px; right: 16px;
-  }
-  .vb-phone-2 .cta-bottom .cta { width: 100%; justify-content: center; }
-
-  /* IPAD LANDSCAPE — B */
-  .vb-ipad {
-    height: 100%;
-    padding: 32px 40px;
-    display: flex;
-    flex-direction: column;
-  }
-  .vb-ipad .header {
-    margin-bottom: 24px;
-  }
-  .vb-ipad .header h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 56px;
-    line-height: 0.9;
-    letter-spacing: -0.03em;
-  }
-  .vb-ipad .header p { color: var(--ink-soft); margin-top: 8px; font-size: 17px; }
-  .vb-ipad .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    flex: 1;
-    min-height: 0;
-  }
-  .vb-ipad .vb-card {
-    margin: 0;
-    height: auto;
-    border-radius: 28px;
-  }
-  .vb-ipad .vb-card .body { padding: 36px; }
-  .vb-ipad .vb-card .name { font-size: 88px; }
-  .vb-ipad .vb-card .tagline { font-size: 24px; max-width: 320px; }
-  .vb-ipad .vb-card.luma .lore-extra { display: block; margin-top: 16px; }
-  .vb-ipad .vb-card.kai .lore-extra { display: block; margin-top: 16px; color: rgba(255,255,255,0.85); }
-  .vb-ipad .vb-card .lore-extra h4 {
-    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-    margin-bottom: 4px; opacity: 0.7;
-  }
-  .vb-ipad .vb-card .lore-extra ul { list-style: none; font-size: 14px; line-height: 1.5; margin-bottom: 12px; }
-  .vb-ipad .vb-card .lore-extra li::before { content: "— "; opacity: 0.7; }
-  .vb-ipad .vb-card .portrait {
-    width: 45%; height: 110%;
-    right: -20px; bottom: -20px;
-  }
-  .vb-ipad .footer {
-    display: flex;
-    align-items: center;
     justify-content: flex-end;
-    margin-top: 24px;
   }
 
-  /* ════════════════════════════════════════════════════════════
-     VARIATION C  ·  PERSONALITY CARDS  (compact, quote-led)
-     ════════════════════════════════════════════════════════════ */
-
-  .vc-phone { padding-top: 80px; height: 100%; display: flex; flex-direction: column; }
-  .vc-phone .header { padding: 0 24px 20px; }
-  .vc-phone .header h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 32px;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    max-width: 280px;
-  }
-  .vc-phone .header p { color: var(--ink-soft); margin-top: 8px; font-size: 14px; }
-
-  .vc-phone .cards-vstack { padding: 0 16px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
-  .vc-card {
-    border: var(--border);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    flex: 1;
-    position: relative;
-    display: flex;
-  }
-  .vc-card.luma { background: linear-gradient(150deg, var(--luma-from), var(--luma-to)); }
-  .vc-card.kai  { background: linear-gradient(150deg, var(--kai-mid), var(--kai-deep)); color: white; }
-  .vc-card.selected { box-shadow: 4px 4px 0 var(--ink), 0 0 0 4px var(--periwinkle); transform: scale(1.005); }
-
-  .vc-card .portrait-side {
-    width: 40%;
-    position: relative;
-  }
-  .vc-card .portrait-side img {
-    width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
-  }
-  .vc-card .text-side {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .vc-card .name {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 32px;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-    margin-bottom: 6px;
-  }
-  .vc-card .quote {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 16px;
-    line-height: 1.25;
-    quotes: '"' '"';
-  }
-  .vc-card .quote::before { content: open-quote; opacity: 0.5; }
-  .vc-card .quote::after { content: close-quote; opacity: 0.5; }
-  .vc-card .tags { display: flex; gap: 4px; margin-top: 10px; flex-wrap: wrap; font-family: 'Outfit'; }
-  .vc-card .tags .tag {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    padding: 3px 8px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.7);
-    border: 1px solid rgba(0,0,0,0.15);
-  }
-  .vc-card.kai .tags .tag {
-    background: rgba(255,255,255,0.18);
-    color: white;
-    border-color: rgba(255,255,255,0.3);
-  }
-
-  .vc-phone .cta-fixed {
-    padding: 16px 16px 32px;
-    text-align: center;
-  }
-  .vc-phone .cta-fixed .cta { width: 100%; justify-content: center; }
-
-  /* IPAD LANDSCAPE — C */
-  .vc-ipad {
-    height: 100%;
-    padding: 28px 40px;
-    display: flex;
-    flex-direction: column;
-  }
-  .vc-ipad .header {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  .vc-ipad .header h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 900;
-    font-size: 48px;
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-  .vc-ipad .header p { color: var(--ink-soft); margin-top: 8px; font-size: 16px; }
-  .vc-ipad .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    flex: 1;
-    min-height: 0;
-  }
-  .vc-ipad .vc-card { flex: none; }
-  .vc-ipad .vc-card .name { font-size: 56px; }
-  .vc-ipad .vc-card .quote { font-size: 22px; }
-  .vc-ipad .vc-card .text-side { padding: 36px; }
-  .vc-ipad .vc-card .tags .tag { font-size: 12px; }
-  .vc-ipad .footer {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  /* ────────────  small-screen (the user's phone)  ────────────  */
+  /* ─────────  small-screen overrides for the user's phone  ─────────  */
   @media (max-width: 480px) {
     .page { padding: 20px 12px 60px; }
-    section.variant > .v-header .num { font-size: 64px; }
-    .phone-frame {
-      width: 100%;
-      max-width: 360px;
-      height: 780px;
-    }
+    .phone-frame { width: 100%; max-width: 360px; height: 780px; }
     .ipad-frame {
       width: 100%;
       height: auto;
@@ -794,19 +446,17 @@
       border-radius: 16px;
       padding: 8px;
     }
-    .ipad-frame .va-ipad .panel h2 { font-size: 28px; }
-    .ipad-frame .va-ipad .stage .name-bg { font-size: 100px; }
-    .ipad-frame .vb-ipad .header h1 { font-size: 22px; }
-    .ipad-frame .vb-ipad .vb-card .name { font-size: 32px; }
-    .ipad-frame .vb-ipad .vb-card .tagline { font-size: 11px; max-width: 80%; }
-    .ipad-frame .vb-ipad .vb-card .lore-extra ul { font-size: 9px; }
-    .ipad-frame .vb-ipad .vb-card .lore-extra h4 { font-size: 8px; }
-    .ipad-frame .vb-ipad .vb-card .body { padding: 16px; }
-    .ipad-frame .vc-ipad .header h1 { font-size: 22px; }
-    .ipad-frame .vc-ipad .vc-card .name { font-size: 24px; }
-    .ipad-frame .vc-ipad .vc-card .quote { font-size: 11px; }
-    .ipad-frame .vc-ipad .vc-card .text-side { padding: 16px; }
-    .ipad-frame .vc-ipad .vc-card .tags .tag { font-size: 8px; padding: 2px 6px; }
+    .ipad-screen .meet-chip { font-size: 10px; padding: 6px 10px; }
+    .ipad-screen .meet-chip .swatch { width: 12px; height: 12px; }
+    .ipad-screen .va-ipad .panel h2 { font-size: 28px; }
+    .ipad-screen .va-ipad .panel .tagline { font-size: 13px; margin-bottom: 8px; }
+    .ipad-screen .va-ipad .panel .eyebrow { font-size: 9px; }
+    .ipad-screen .va-ipad .panel .lore-list li { font-size: 9px; }
+    .ipad-screen .va-ipad .panel .lore-list-h4 { font-size: 8px; }
+    .ipad-screen .va-ipad .panel { padding: 32px 16px 16px; }
+    .ipad-screen .va-ipad .stage .name-bg { font-size: 96px; }
+    .ipad-screen .nav-back { width: 24px; height: 24px; font-size: 11px; top: 12px; left: 12px; }
+    .ipad-screen .story-bars { top: 12px; left: 16px; right: 38vw; }
   }
 </style>
 </head>
@@ -815,443 +465,216 @@
 <div class="page">
 
   <header class="intro">
-    <div class="eyebrow">Onboarding · Brainstorm · 2026-05-04</div>
-    <h1>Character Picker · 3 directions</h1>
+    <div class="eyebrow">Onboarding · Character Picker · Variation A · Refined · 2026-05-04</div>
+    <h1>Hero Stage · with auto-advance and "Meet Kai" cue</h1>
     <p class="lede">
-      Goal: the kid picks a character because they <em>vibe</em>, not because the name sounds cool.
-      Each variation surfaces personality through portrait, signature color, and short, specific lore — no emoji placeholders.
-      iPad landscape uses the same two-column shape as the AB-test paywall and the Imagine sell-flow screen
-      (left = big canvas, right = ~38% panel).
+      Same hero stage as before — single character, full-bleed colored backdrop, name-as-typography behind them.
+      Two refinements address the "they might miss Kai" risk:
     </p>
+    <ul class="refinements">
+      <li><strong>Auto-advance progress bars</strong> at the top (Instagram-stories pattern). Active bar fills over ~7s, then auto-advances to Kai. Stops on first user interaction (tap or swipe).</li>
+      <li><strong>Big labeled "Meet Kai →" chip</strong> on the right edge of the stage — replaces the tiny arrow. When you're on Kai, it flips to <em>"← Meet Luma"</em> on the left edge. Carries a tiny color swatch so the chip itself previews the next character.</li>
+    </ul>
   </header>
 
-  <!--  ═══════════════  CHARACTER LORE REFERENCE  ═══════════════  -->
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PHONE  ·  TWO STATES
+       ═══════════════════════════════════════════════════════════════════  -->
 
-  <h2 style="font-family:'Fraunces',serif; font-weight:900; font-size:28px; margin-bottom:8px; letter-spacing:-0.02em;">
-    Who they are
-  </h2>
-  <p style="color:var(--ink-soft); font-size:14px; margin-bottom:16px;">
-    Reference text below — fed into each variation. Specific details, not generic adjectives.
-  </p>
-  <div class="lore">
-    <div class="lore-card luma">
-      <div class="name">Luma</div>
-      <div class="tagline">"I'll always pick up the group chat."</div>
-      <h4>Into</h4>
-      <ul>
-        <li>loud lunch tables</li>
-        <li>naming her roommate's plant ("Stephen")</li>
-        <li>the right playlist for your mood</li>
-        <li>knowing your birthday before you remember it</li>
-      </ul>
-      <h4>Not her thing</h4>
-      <ul>
-        <li>silent group chats</li>
-        <li>people who say "we'll see"</li>
-        <li>rooms that go quiet too fast</li>
-      </ul>
-    </div>
-    <div class="lore-card kai">
-      <div class="name">Kai</div>
-      <div class="tagline">"I'll just sit with you."</div>
-      <h4>Into</h4>
-      <ul>
-        <li>rainy windows</li>
-        <li>finishing a book before starting another</li>
-        <li>the smell of bookstores</li>
-        <li>knowing exactly when to stop talking</li>
-      </ul>
-      <h4>Not his thing</h4>
-      <ul>
-        <li>forced cheerfulness</li>
-        <li>surprise parties</li>
-        <li>being told to "smile more"</li>
-        <li>group projects with people who don't read</li>
-      </ul>
-    </div>
-  </div>
+  <div class="frame-label">iPhone · the two carousel states</div>
+  <div class="row-2">
 
-  <!--  ═══════════════════════════════════════════════════════════
-        VARIATION A · HERO STAGE
-        ═══════════════════════════════════════════════════════════  -->
-
-  <section class="variant" id="variant-a">
-    <div class="v-header">
-      <div class="num">A</div>
-      <div class="title">Hero Stage · swipe-between-two</div>
-    </div>
-    <p class="sub">
-      One character at a time, full-bleed. Tap the arrow / swipe to switch. Color-tinted backdrop morphs between characters. Use the live Unity render here later (same trick as the customize-character screen — character on a colored stage). The character's name lives <em>behind</em> them as a giant typographic mark, like an album cover.
-    </p>
-
-    <!-- PHONE -->
-    <div class="frames">
-      <div>
-        <div class="frame-label">iPhone · portrait</div>
-        <div class="phone-frame">
-          <div class="phone-screen va-phone">
-            <div class="nav-back">‹</div>
-            <div class="dots"><span class="on"></span><span></span></div>
-            <div class="stage">
-              <div class="name-strip">LUMA</div>
-              <img src="img/luma_full_body.png" alt="Luma" />
-            </div>
-            <div class="arrows">
-              <div class="arrow dim">‹</div>
-              <div class="arrow">›</div>
-            </div>
-            <div class="lore-sheet">
-              <div class="tagline">"I'll always pick up the group chat."</div>
-              <div class="lore-list-h4">Into</div>
-              <ul class="lore-list">
-                <li>loud lunch tables</li>
-                <li>the right playlist for your mood</li>
-                <li>knowing your birthday before you remember it</li>
-              </ul>
-              <div class="lore-list-h4">Not her thing</div>
-              <ul class="lore-list">
-                <li>silent group chats</li>
-                <li>people who say "we'll see"</li>
-              </ul>
-              <div class="cta-fixed">
-                <button class="cta">Pick Luma →</button>
-              </div>
-            </div>
+    <!-- STATE 1: LUMA  -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-screen va-phone">
+          <div class="story-bars">
+            <div class="story-bar active"><div class="fill"></div></div>
+            <div class="story-bar"></div>
           </div>
-        </div>
-      </div>
-
-      <!-- IPAD LANDSCAPE -->
-      <div style="width: 100%;">
-        <div class="frame-label">iPad · landscape</div>
-        <div class="ipad-frame">
-          <div class="ipad-screen">
-            <div class="nav-back">‹</div>
-            <div class="va-ipad">
-              <div class="stage">
-                <div class="name-bg">LUMA</div>
-                <img src="img/luma_full_body.png" alt="Luma" />
-                <div class="dots"><span class="on"></span><span></span></div>
-              </div>
-              <div class="panel">
-                <div class="eyebrow">1 of 2 · swipe to see Kai</div>
-                <h2>Luma</h2>
-                <div class="tagline">"I'll always pick up the group chat."</div>
-                <div class="lore-list-h4">Into</div>
-                <ul class="lore-list">
-                  <li>loud lunch tables</li>
-                  <li>naming her roommate's plant</li>
-                  <li>the right playlist for your mood</li>
-                  <li>knowing your birthday before you remember it</li>
-                </ul>
-                <div class="lore-list-h4">Not her thing</div>
-                <ul class="lore-list">
-                  <li>silent group chats</li>
-                  <li>people who say "we'll see"</li>
-                  <li>rooms that go quiet too fast</li>
-                </ul>
-                <div class="cta-row">
-                  <div class="arrow-btn">‹</div>
-                  <button class="cta">Pick Luma →</button>
-                </div>
-              </div>
-            </div>
+          <div class="nav-back">‹</div>
+          <div class="stage luma">
+            <div class="name-strip">LUMA</div>
+            <img src="img/luma_clean.png" alt="Luma" />
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!--  ═══════════════════════════════════════════════════════════
-        VARIATION B · TWO-UP SPLIT
-        ═══════════════════════════════════════════════════════════  -->
-
-  <section class="variant" id="variant-b">
-    <div class="v-header">
-      <div class="num">B</div>
-      <div class="title">Two-Up Split · both visible, expand on tap</div>
-    </div>
-    <p class="sub">
-      Both characters visible at once. Tap one to expand it (full lore reveals); the other collapses to a header strip. Easy comparison. Phone shows two states: <em>idle</em> (both equal) and <em>selected</em> (Luma expanded).
-    </p>
-
-    <div class="frames">
-
-      <!-- PHONE — idle state -->
-      <div>
-        <div class="frame-label">iPhone · idle (both equal)</div>
-        <div class="phone-frame">
-          <div class="phone-screen vb-phone">
-            <div class="nav-back">‹</div>
-            <div class="header">
-              <h1>Who do you want by your side?</h1>
-              <p>Tap one to learn more. Pick the one that just feels right.</p>
-            </div>
-            <div class="vb-card luma">
-              <div class="body">
-                <div>
-                  <div class="name">Luma</div>
-                  <div class="tagline">"I'll always pick up the group chat."</div>
-                </div>
-                <div class="pill-row">
-                  <span class="pill">warm</span>
-                  <span class="pill">loud</span>
-                  <span class="pill">never alone</span>
-                </div>
-              </div>
-              <div class="portrait"><img src="img/luma_full_body.png" alt="Luma" /></div>
-            </div>
-            <div class="vb-card kai">
-              <div class="body">
-                <div>
-                  <div class="name">Kai</div>
-                  <div class="tagline">"I'll just sit with you."</div>
-                </div>
-                <div class="pill-row">
-                  <span class="pill">calm</span>
-                  <span class="pill">quiet</span>
-                  <span class="pill">steady</span>
-                </div>
-              </div>
-              <div class="portrait"><div class="kai-silhouette"></div></div>
-            </div>
+          <div class="meet-chip">
+            <span>Meet Kai</span>
+            <span class="swatch kai"></span>
+            <span style="font-size:14px;">→</span>
           </div>
-        </div>
-      </div>
-
-      <!-- PHONE — selected state -->
-      <div>
-        <div class="frame-label">iPhone · Luma selected (Kai collapses)</div>
-        <div class="phone-frame">
-          <div class="phone-screen vb-phone vb-phone-2">
-            <div class="nav-back">‹</div>
-            <div class="header">
-              <h1>Who do you want by your side?</h1>
-              <p>Tap one to learn more. Pick the one that just feels right.</p>
-            </div>
-            <div class="vb-card luma">
-              <div class="selected-tag">picked</div>
-              <div class="body">
-                <div>
-                  <div class="name">Luma</div>
-                  <div class="tagline">"I'll always pick up the group chat."</div>
-                </div>
-                <div class="lore-extra">
-                  <h4>Into</h4>
-                  <ul>
-                    <li>loud lunch tables</li>
-                    <li>the right playlist for your mood</li>
-                    <li>knowing your birthday before you remember it</li>
-                  </ul>
-                  <h4>Not her thing</h4>
-                  <ul>
-                    <li>silent group chats</li>
-                    <li>people who say "we'll see"</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="portrait"><img src="img/luma_full_body.png" alt="Luma" /></div>
-            </div>
-            <div class="vb-card kai">
-              <div class="body">
-                <div>
-                  <div class="name">Kai</div>
-                  <div class="tagline">"I'll just sit with you."</div>
-                </div>
-              </div>
-              <div class="portrait"><div class="kai-silhouette"></div></div>
-            </div>
-            <div class="cta-bottom">
-              <button class="cta">Pick Luma →</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- IPAD LANDSCAPE -->
-      <div style="width: 100%;">
-        <div class="frame-label">iPad · landscape (both fully visible)</div>
-        <div class="ipad-frame">
-          <div class="ipad-screen">
-            <div class="nav-back">‹</div>
-            <div class="vb-ipad">
-              <div class="header">
-                <h1>Who do you want by your side?</h1>
-                <p>Pick the one that just feels right.</p>
-              </div>
-              <div class="row">
-                <div class="vb-card luma">
-                  <div class="body">
-                    <div>
-                      <div class="name">Luma</div>
-                      <div class="tagline">"I'll always pick up the group chat."</div>
-                    </div>
-                    <div class="lore-extra">
-                      <h4>Into</h4>
-                      <ul>
-                        <li>loud lunch tables</li>
-                        <li>the right playlist for your mood</li>
-                        <li>knowing your birthday</li>
-                      </ul>
-                      <h4>Not her thing</h4>
-                      <ul>
-                        <li>silent group chats</li>
-                        <li>"we'll see"</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="portrait"><img src="img/luma_full_body.png" alt="Luma" /></div>
-                </div>
-                <div class="vb-card kai">
-                  <div class="body">
-                    <div>
-                      <div class="name">Kai</div>
-                      <div class="tagline">"I'll just sit with you."</div>
-                    </div>
-                    <div class="lore-extra">
-                      <h4>Into</h4>
-                      <ul>
-                        <li>rainy windows</li>
-                        <li>finishing a book before starting another</li>
-                        <li>knowing when to stop talking</li>
-                      </ul>
-                      <h4>Not his thing</h4>
-                      <ul>
-                        <li>forced cheerfulness</li>
-                        <li>surprise parties</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="portrait"><div class="kai-silhouette"></div></div>
-                </div>
-              </div>
-              <div class="footer">
-                <button class="cta disabled">Pick a character →</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!--  ═══════════════════════════════════════════════════════════
-        VARIATION C · PERSONALITY CARDS
-        ═══════════════════════════════════════════════════════════  -->
-
-  <section class="variant" id="variant-c">
-    <div class="v-header">
-      <div class="num">C</div>
-      <div class="title">Personality Cards · quote-led, compact</div>
-    </div>
-    <p class="sub">
-      Less art-heavy than A or B. Each card is a single quote + 3 personality tags. Faster to scan, more decisive ("which voice sounds like the friend I want?"). Portrait is a side-cropped photo, not a centerpiece. Best for kids who don't want to swipe through a carousel.
-    </p>
-
-    <div class="frames">
-
-      <div>
-        <div class="frame-label">iPhone · portrait</div>
-        <div class="phone-frame">
-          <div class="phone-screen vc-phone">
-            <div class="nav-back">‹</div>
-            <div class="header">
-              <h1>Who's your kind of person?</h1>
-              <p>Pick whoever sounds like a friend you'd want.</p>
-            </div>
-            <div class="cards-vstack">
-              <div class="vc-card luma selected">
-                <div class="portrait-side"><img src="img/luma_full_body.png" alt="Luma" /></div>
-                <div class="text-side">
-                  <div>
-                    <div class="name">Luma</div>
-                    <div class="quote">I'll always pick up the group chat.</div>
-                  </div>
-                  <div class="tags">
-                    <span class="tag">warm</span>
-                    <span class="tag">loud</span>
-                    <span class="tag">never alone</span>
-                  </div>
-                </div>
-              </div>
-              <div class="vc-card kai">
-                <div class="portrait-side"><div class="kai-silhouette"></div></div>
-                <div class="text-side">
-                  <div>
-                    <div class="name">Kai</div>
-                    <div class="quote">I'll just sit with you.</div>
-                  </div>
-                  <div class="tags">
-                    <span class="tag">calm</span>
-                    <span class="tag">quiet</span>
-                    <span class="tag">steady</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="lore-sheet">
+            <div class="tagline">"I'll always pick up the group chat."</div>
+            <div class="lore-list-h4">Into</div>
+            <ul class="lore-list">
+              <li>loud lunch tables</li>
+              <li>the right playlist for your mood</li>
+              <li>knowing your birthday before you remember it</li>
+            </ul>
+            <div class="lore-list-h4">Not her thing</div>
+            <ul class="lore-list">
+              <li>silent group chats</li>
+              <li>people who say "we'll see"</li>
+            </ul>
             <div class="cta-fixed">
               <button class="cta">Pick Luma →</button>
             </div>
           </div>
         </div>
       </div>
+      <p style="text-align:center; font-size:12px; color:var(--ink-mute); margin-top:8px; font-family:'Fraunces',serif; font-style:italic;">State 1 · Luma is on stage. Bar 1 is filling. After ~7s without interaction, advances to Kai.</p>
+    </div>
 
-      <!-- IPAD LANDSCAPE -->
-      <div style="width: 100%;">
-        <div class="frame-label">iPad · landscape</div>
-        <div class="ipad-frame">
-          <div class="ipad-screen">
-            <div class="nav-back">‹</div>
-            <div class="vc-ipad">
-              <div class="header">
-                <h1>Who's your kind of person?</h1>
-                <p>Pick whoever sounds like a friend you'd want.</p>
-              </div>
-              <div class="row">
-                <div class="vc-card luma selected">
-                  <div class="portrait-side"><img src="img/luma_full_body.png" alt="Luma" /></div>
-                  <div class="text-side">
-                    <div>
-                      <div class="name">Luma</div>
-                      <div class="quote">I'll always pick up the group chat.</div>
-                    </div>
-                    <div class="tags">
-                      <span class="tag">warm</span>
-                      <span class="tag">loud</span>
-                      <span class="tag">never alone</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="vc-card kai">
-                  <div class="portrait-side"><div class="kai-silhouette"></div></div>
-                  <div class="text-side">
-                    <div>
-                      <div class="name">Kai</div>
-                      <div class="quote">I'll just sit with you.</div>
-                    </div>
-                    <div class="tags">
-                      <span class="tag">calm</span>
-                      <span class="tag">quiet</span>
-                      <span class="tag">steady</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="footer">
-                <button class="cta">Pick Luma →</button>
-              </div>
+    <!-- STATE 2: KAI -->
+    <div>
+      <div class="phone-frame">
+        <div class="phone-screen va-phone">
+          <div class="story-bars">
+            <div class="story-bar complete"><div class="fill" style="width:100%; background:white;"></div></div>
+            <div class="story-bar partial"><div class="fill"></div></div>
+          </div>
+          <div class="nav-back">‹</div>
+          <div class="stage kai">
+            <div class="name-strip">KAI</div>
+            <div class="kai-art kai-silhouette"></div>
+          </div>
+          <div class="meet-chip left">
+            <span style="font-size:14px;">←</span>
+            <span class="swatch luma"></span>
+            <span>Meet Luma</span>
+          </div>
+          <div class="lore-sheet">
+            <div class="tagline" style="color:var(--ink);">"I'll just sit with you."</div>
+            <div class="lore-list-h4">Into</div>
+            <ul class="lore-list">
+              <li>rainy windows</li>
+              <li>finishing a book before starting another</li>
+              <li>knowing exactly when to stop talking</li>
+            </ul>
+            <div class="lore-list-h4">Not his thing</div>
+            <ul class="lore-list">
+              <li>forced cheerfulness</li>
+              <li>surprise parties</li>
+            </ul>
+            <div class="cta-fixed">
+              <button class="cta">Pick Kai →</button>
             </div>
           </div>
         </div>
       </div>
+      <p style="text-align:center; font-size:12px; color:var(--ink-mute); margin-top:8px; font-family:'Fraunces',serif; font-style:italic;">State 2 · Auto-advanced to Kai. Bar 2 is filling. Chip flips to "Meet Luma" on the left edge.</p>
     </div>
-  </section>
+  </div>
 
-  <footer style="margin-top: 80px; padding-top: 32px; border-top: 2px dashed rgba(0,0,0,0.15); font-size: 13px; color: var(--ink-mute);">
-    Brand colors: cream <code>#FFFDF7</code>, periwinkle <code>#8C9EFF</code>, raspberry <code>#F20D46</code>.
-    Kai's portrait is a stylized placeholder until art ships — final version uses the live Unity render
-    on a color-tinted stage (same pattern as the Customize Character screen).
-  </footer>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       IPAD LANDSCAPE  ·  TWO STATES
+       ═══════════════════════════════════════════════════════════════════  -->
+
+  <div style="margin-top: 64px;">
+    <div class="frame-label">iPad · landscape · Luma state</div>
+    <div class="ipad-frame">
+      <div class="ipad-screen">
+        <div class="story-bars">
+          <div class="story-bar active"><div class="fill"></div></div>
+          <div class="story-bar"></div>
+        </div>
+        <div class="nav-back">‹</div>
+        <div class="va-ipad">
+          <div class="stage luma">
+            <div class="name-bg">LUMA</div>
+            <img src="img/luma_clean.png" alt="Luma" />
+          </div>
+          <div class="panel">
+            <div class="eyebrow">1 of 2</div>
+            <h2>Luma</h2>
+            <div class="tagline">"I'll always pick up the group chat."</div>
+            <div class="lore-list-h4">Into</div>
+            <ul class="lore-list">
+              <li>loud lunch tables</li>
+              <li>naming her roommate's plant ("Stephen")</li>
+              <li>the right playlist for your mood</li>
+              <li>knowing your birthday before you remember it</li>
+            </ul>
+            <div class="lore-list-h4">Not her thing</div>
+            <ul class="lore-list">
+              <li>silent group chats</li>
+              <li>people who say "we'll see"</li>
+              <li>rooms that go quiet too fast</li>
+            </ul>
+            <div class="cta-row">
+              <button class="cta">Pick Luma →</button>
+            </div>
+          </div>
+        </div>
+        <div class="meet-chip">
+          <span>Meet Kai</span>
+          <span class="swatch kai"></span>
+          <span style="font-size:14px;">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px;">
+    <div class="frame-label">iPad · landscape · Kai state (after auto-advance or chip tap)</div>
+    <div class="ipad-frame">
+      <div class="ipad-screen">
+        <div class="story-bars">
+          <div class="story-bar complete"><div class="fill" style="width:100%; background:white;"></div></div>
+          <div class="story-bar partial"><div class="fill"></div></div>
+        </div>
+        <div class="nav-back">‹</div>
+        <div class="va-ipad">
+          <div class="stage kai">
+            <div class="name-bg">KAI</div>
+            <div class="kai-silhouette kai-art-full"></div>
+          </div>
+          <div class="panel">
+            <div class="eyebrow">2 of 2</div>
+            <h2>Kai</h2>
+            <div class="tagline">"I'll just sit with you."</div>
+            <div class="lore-list-h4">Into</div>
+            <ul class="lore-list">
+              <li>rainy windows</li>
+              <li>finishing a book before starting another</li>
+              <li>the smell of bookstores</li>
+              <li>knowing exactly when to stop talking</li>
+            </ul>
+            <div class="lore-list-h4">Not his thing</div>
+            <ul class="lore-list">
+              <li>forced cheerfulness</li>
+              <li>surprise parties</li>
+              <li>group projects with people who don't read</li>
+            </ul>
+            <div class="cta-row">
+              <button class="cta">Pick Kai →</button>
+            </div>
+          </div>
+        </div>
+        <div class="meet-chip left">
+          <span style="font-size:14px;">←</span>
+          <span class="swatch luma"></span>
+          <span>Meet Luma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       INTERACTION NOTES
+       ═══════════════════════════════════════════════════════════════════  -->
+
+  <section style="margin-top: 80px; padding-top: 32px; border-top: 2px dashed rgba(0,0,0,0.15);">
+    <h3 style="font-family:'Fraunces',serif; font-weight:900; font-size:24px; margin-bottom:12px; letter-spacing:-0.02em;">Interaction model</h3>
+    <ul style="padding-left: 20px; color:var(--ink-soft); font-size:15px;">
+      <li style="padding: 4px 0;"><strong style="color:var(--ink);">First mount:</strong> bar 1 starts filling immediately. After ~7s with no interaction, animate transition to Kai (cross-fade backdrop, slide character, name-bg swaps).</li>
+      <li style="padding: 4px 0;"><strong style="color:var(--ink);">After Kai auto-advance:</strong> bar 2 starts filling. After another ~7s, loops back to Luma. Continues until first user interaction.</li>
+      <li style="padding: 4px 0;"><strong style="color:var(--ink);">First user interaction</strong> (tapping chip, swiping the stage, tapping a story bar, or tapping the primary CTA): cancel auto-advance, never resume in this session. Bars become static indicators.</li>
+      <li style="padding: 4px 0;"><strong style="color:var(--ink);">Story bars are tappable</strong> — tap a bar to jump to that character (matches the Instagram pattern kids already know).</li>
+      <li style="padding: 4px 0;"><strong style="color:var(--ink);">Swipe horizontally</strong> on the stage → switch character (with the same cross-fade as auto-advance).</li>
+      <li style="padding: 4px 0;"><strong style="color:var(--ink);">Primary CTA</strong> updates with active character: "Pick Luma →" / "Pick Kai →".</li>
+    </ul>
+    <p style="margin-top:16px; color:var(--ink-mute); font-size:13px; font-family:'Fraunces',serif; font-style:italic;">Kai's portrait is a stylized placeholder — final version uses the live Unity render on a color-tinted stage (same trick as the customize-character screen).</p>
+  </section>
 
 </div>
 
