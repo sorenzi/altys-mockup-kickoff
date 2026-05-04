@@ -108,20 +108,8 @@
   }
   .ipad-screen .nav-back { top: 24px; left: 24px; }
 
-  .story-bars {
-    position: absolute; top: 64px; left: 20px; right: 20px;
-    display: flex; gap: 6px; z-index: 4;
-  }
-  .ipad-screen .story-bars { top: 28px; left: 28px; right: 38vw; max-width: 60%; }
-  .story-bar {
-    flex: 1; height: 3px; background: rgba(0,0,0,0.18);
-    border-radius: 2px; overflow: hidden; position: relative;
-  }
-  .story-bar.active::after {
-    content: ""; position: absolute; inset: 0;
-    background: var(--ink); width: 35%;
-  }
-  .story-bar.complete { background: var(--ink); }
+  /* Story bars removed for cover-flow — the carousel itself is the
+     position indicator; the dots at bottom of stage are sufficient. */
 
   .cta {
     background: var(--periwinkle); color: white; border: var(--border);
@@ -155,8 +143,14 @@
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
   }
+  /* Cards size relative to the canvas height so they scale on any
+     viewport. height:70% + aspect-ratio gives a consistent portrait
+     card; positioning uses % so the iPad mockup looks right even when
+     the page shrinks the iPad frame on a phone-sized viewport. */
   .card {
     position: absolute;
+    height: 70%;
+    aspect-ratio: 7 / 10;
     border-radius: 28px;
     border: var(--border);
     box-shadow: var(--shadow-card);
@@ -165,29 +159,26 @@
     flex-direction: column;
     align-items: center;
     transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.3s ease;
+    container-type: inline-size;  /* enables cqw units inside */
   }
-  /* Phone card sizes */
-  .phone-screen .card { width: 250px; height: 360px; }
-  .phone-screen .card.focal { transform: translate(-50%, -50%) scale(1); left: 50%; top: 50%; z-index: 3; }
-  .phone-screen .card.peek-right {
-    transform: translate(-50%, -50%) scale(0.62); opacity: 0.55;
-    left: calc(100% - 50px); top: 50%; z-index: 1;
+  .card.focal {
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
   }
-  .phone-screen .card.peek-left {
-    transform: translate(-50%, -50%) scale(0.62); opacity: 0.55;
-    left: 50px; top: 50%; z-index: 1;
+  .card.peek-right {
+    right: -30%;
+    top: 50%;
+    transform: translateY(-50%) scale(0.62);
+    opacity: 0.55;
+    z-index: 1;
   }
-
-  /* iPad card sizes */
-  .ipad-screen .card { width: 360px; height: 580px; }
-  .ipad-screen .card.focal { transform: translate(-50%, -50%) scale(1); left: 50%; top: 50%; z-index: 3; }
-  .ipad-screen .card.peek-right {
-    transform: translate(-50%, -50%) scale(0.62); opacity: 0.55;
-    left: calc(100% - 80px); top: 50%; z-index: 1;
-  }
-  .ipad-screen .card.peek-left {
-    transform: translate(-50%, -50%) scale(0.62); opacity: 0.55;
-    left: 80px; top: 50%; z-index: 1;
+  .card.peek-left {
+    left: -30%;
+    top: 50%;
+    transform: translateY(-50%) scale(0.62);
+    opacity: 0.55;
+    z-index: 1;
   }
 
   /* Card visuals */
@@ -197,15 +188,14 @@
   .card .name {
     font-family: 'Fraunces', serif;
     font-weight: 900;
-    font-size: 64px;
+    font-size: 22cqi;     /* scales with card width: 22% of card inline size */
     line-height: 0.85;
     letter-spacing: -0.04em;
     color: white;
     -webkit-text-stroke: 1.5px var(--ink);
-    margin-top: 24px;
+    margin-top: 6%;
     text-align: center;
   }
-  .ipad-screen .card .name { font-size: 96px; margin-top: 32px; }
 
   .card .portrait-area {
     flex: 1;
@@ -350,10 +340,6 @@
             <div class="nav-back">‹</div>
             <div class="compact-screen">
               <div class="stage-area luma-focal">
-                <div class="story-bars">
-                  <div class="story-bar active"></div>
-                  <div class="story-bar"></div>
-                </div>
                 <div class="carousel">
                   <div class="card kai peek-right">
                     <div class="name">KAI</div>
@@ -396,10 +382,6 @@
             <div class="ipad-layout">
               <div class="canvas">
                 <div class="stage-area luma-focal" style="height: 100%;">
-                  <div class="story-bars">
-                    <div class="story-bar active"></div>
-                    <div class="story-bar"></div>
-                  </div>
                   <div class="carousel">
                     <div class="card kai peek-right">
                       <div class="name">KAI</div>
@@ -464,10 +446,6 @@
             <div class="nav-back">‹</div>
             <div class="compact-screen">
               <div class="stage-area kai-focal">
-                <div class="story-bars">
-                  <div class="story-bar complete"></div>
-                  <div class="story-bar active"></div>
-                </div>
                 <div class="carousel">
                   <div class="card luma peek-left">
                     <div class="name">LUMA</div>
@@ -510,10 +488,6 @@
             <div class="ipad-layout">
               <div class="canvas">
                 <div class="stage-area kai-focal" style="height: 100%;">
-                  <div class="story-bars">
-                    <div class="story-bar complete"></div>
-                    <div class="story-bar active"></div>
-                  </div>
                   <div class="carousel">
                     <div class="card luma peek-left">
                       <div class="name">LUMA</div>
