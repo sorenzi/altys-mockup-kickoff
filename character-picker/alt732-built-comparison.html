@@ -170,6 +170,24 @@
       </div>
     </section>
 
+    <section>
+      <h2>iPad mini — Luma focal, landscape composition</h2>
+      <p class="caption">
+        Landscape layout uses <code>OnboardingLandscapeSplit</code>: cover-flow hero on the
+        left, lore panel on the right with the full content stack.
+        <b>Caveat:</b> the macOS Simulator rotation API was blocked in this environment
+        (System Events accessibility refused), so dimensions stay iPad-portrait — but the
+        SwiftUI composition rendered inside is the actual landscape layout. On a real iPad
+        in landscape the columns breathe wider (pills won't wrap as tightly).
+      </p>
+      <div class="grid">
+        <figure>
+          <img src="alt732-built-pillsv2-ipad-landscape.png" alt="iPad landscape composition — Luma focal" />
+          <figcaption>iPad mini · landscape composition rendered into portrait viewport</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="changes">
       <h2>What's new vs. v1</h2>
       <ul>
