@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALT-732 · Peek Carousel · Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #FFFDF7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8580;
+    --periwinkle: #8C9EFF;
+
+    --luma-from: #FFD6E8;
+    --luma-mid: #F8B3D3;
+    --luma-to: #C9A8FF;
+
+    --kai-from: #DBE9FF;
+    --kai-mid: #6E96D6;
+    --kai-to: #1B3A6B;
+
+    --shadow: 4px 4px 0 #1a1a1a;
+    --shadow-sm: 2px 2px 0 #1a1a1a;
+    --border: 1.5px solid #1a1a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Outfit', system-ui, sans-serif;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 1320px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  header {
+    border-bottom: var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+  }
+  header .eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  header p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin-top: 12px;
+    max-width: 760px;
+  }
+  header ul {
+    margin-top: 16px;
+    padding-left: 20px;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  header ul li { padding: 4px 0; }
+  header ul li strong { color: var(--ink); }
+
+  section.scene {
+    margin-top: 56px;
+    border-top: 2px dashed rgba(0,0,0,0.15);
+    padding-top: 24px;
+  }
+  section.scene h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  section.scene .meta {
+    color: var(--ink-mute);
+    font-size: 13px;
+    margin-bottom: 20px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+
+  .frames {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .frame-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 8px;
+    margin-left: 4px;
+  }
+
+  /* PHONE FRAME */
+  .phone-frame {
+    width: 390px;
+    height: 844px;
+    background: #1a1a1a;
+    border-radius: 56px;
+    padding: 12px;
+    box-shadow: var(--shadow);
+    flex-shrink: 0;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--cream);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* IPAD LANDSCAPE FRAME */
+  .ipad-frame {
+    width: 100%;
+    max-width: 1180px;
+    aspect-ratio: 1180 / 820;
+    background: #1a1a1a;
+    border-radius: 28px;
+    padding: 14px;
+    box-shadow: var(--shadow);
+  }
+  .ipad-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--cream);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ─────────── shared chrome ─────────── */
+  .nav-back {
+    position: absolute;
+    top: 60px; left: 20px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: var(--border);
+    box-shadow: var(--shadow-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700;
+    z-index: 5;
+  }
+  .ipad-screen .nav-back { top: 24px; left: 24px; }
+
+  .story-bars {
+    position: absolute;
+    top: 64px; left: 20px; right: 20px;
+    display: flex;
+    gap: 6px;
+    z-index: 4;
+  }
+  .ipad-screen .story-bars { top: 28px; left: 28px; right: 38vw; max-width: 60%; }
+  .story-bar {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.45);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .story-bar.active::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: white;
+    width: 35%;
+  }
+  .story-bar.complete { background: white; }
+
+  .cta {
+    background: var(--periwinkle);
+    color: white;
+    border: var(--border);
+    border-radius: 999px;
+    padding: 14px 28px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lore-list { list-style: none; padding-left: 0; }
+  .lore-list li {
+    font-size: 13px;
+    padding: 3px 0;
+    line-height: 1.35;
+  }
+  .lore-list li::before { content: "— "; opacity: 0.7; }
+  .lore-list-h4 {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  /* ───────── HERO STAGE WITH PEEK ───────── */
+  .stage {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+  /* main hero card takes most of the canvas */
+  .stage .main {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    /* Cards have rounded inner edges to read as separate cards */
+  }
+  /* Peek card on the right (or left) */
+  .stage .peek {
+    width: 14%;
+    position: relative;
+    overflow: hidden;
+    border-left: var(--border);
+    box-shadow: -4px 0 0 #1a1a1a;
+    transition: width 0.3s ease;
+  }
+  .stage .peek.left {
+    border-left: none;
+    border-right: var(--border);
+    box-shadow: 4px 0 0 #1a1a1a;
+  }
+  .stage .peek-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: white;
+    -webkit-text-stroke: 1.5px var(--ink);
+    opacity: 0.95;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .stage .peek-cta {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: white;
+    border: var(--border);
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
+  }
+  .stage .ipad-only-cta { display: none; }
+
+  /* Luma + Kai gradients */
+  .luma-bg { background: linear-gradient(160deg, var(--luma-from), var(--luma-mid) 50%, var(--luma-to)); }
+  .kai-bg  { background: linear-gradient(160deg, var(--kai-from),  var(--kai-mid)  50%, var(--kai-to));  }
+
+  /* Giant name behind hero portrait */
+  .stage .main .name {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 96px;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: white;
+    -webkit-text-stroke: 1.5px var(--ink);
+    opacity: 0.95;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .ipad-screen .stage .main .name { font-size: 220px; top: 50%; }
+  .stage .main .portrait {
+    position: relative;
+    z-index: 2;
+    height: 92%;
+    width: auto;
+  }
+
+  /* Compact = phone layout */
+  .compact-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .compact-screen .stage-area {
+    height: 480px;
+    position: relative;
+  }
+  .compact-screen .lore-sheet {
+    flex: 1;
+    background: var(--cream);
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    padding: 24px 24px 32px;
+    margin-top: -32px;
+    border-top: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .compact-screen .tagline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .compact-screen .cta-fixed {
+    position: absolute;
+    bottom: 24px;
+    left: 24px; right: 24px;
+    text-align: center;
+  }
+  .compact-screen .cta-fixed .cta { width: 100%; justify-content: center; }
+
+  /* iPad landscape layout */
+  .ipad-layout {
+    display: flex;
+    height: 100%;
+  }
+  .ipad-layout .canvas {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .ipad-layout .panel {
+    width: 38%;
+    max-width: 500px;
+    background: var(--cream);
+    border-left: var(--border);
+    padding: 56px 40px 32px;
+    display: flex;
+    flex-direction: column;
+  }
+  .ipad-layout .panel .eyebrow {
+    font-family: 'Fraunces', serif; font-style: italic;
+    color: var(--ink-mute); font-size: 14px; margin-bottom: 6px;
+  }
+  .ipad-layout .panel h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .ipad-layout .panel .tagline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .ipad-layout .panel .cta-row {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .swipe-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: rgba(255,255,255,0.85);
+    border: var(--border);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(6px);
+  }
+
+  .luma-portrait, .kai-portrait {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 88%;
+    width: auto;
+    z-index: 2;
+    mix-blend-mode: multiply;
+  }
+  .ipad-screen .luma-portrait, .ipad-screen .kai-portrait { height: 92%; }
+
+  .kai-placeholder {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0; top: 0;
+    background:
+      radial-gradient(circle at 50% 36%, var(--kai-mid) 0%, transparent 26%),
+      radial-gradient(ellipse 60% 40% at 50% 84%, var(--kai-mid) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, var(--kai-to) 0%, var(--kai-from) 80%);
+    opacity: 0.4;
+    z-index: 1;
+  }
+
+  .notes {
+    background: rgba(140, 158, 255, 0.08);
+    border-left: 3px solid var(--periwinkle);
+    padding: 14px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 760px;
+    margin-top: 16px;
+  }
+  .notes strong { color: var(--ink); }
+  .notes ul { padding-left: 20px; margin-top: 6px; }
+  .notes li { padding: 2px 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="eyebrow">ALT-732 · Peek Carousel · Concept · 2026-05-04</div>
+    <h1>Hero Stage v2 — peek the next character at rest</h1>
+    <p>
+      The currently shipped Hero Stage shows a single character at full bleed.
+      Discovery of the second character relies on either auto-advance firing
+      (7s timer) or the user noticing the "Meet Kai" chip. Risk: a kid who
+      moves through onboarding fast taps "Pick Luma" without realising Kai
+      exists.
+    </p>
+    <ul>
+      <li><strong>Idea:</strong> the canvas itself shows that there's more — a slice of the next character peeks in from the right edge, with their gradient and a hint of their name. No chip needed; the peek <em>is</em> the affordance.</li>
+      <li><strong>Lore panel stays exactly as-is</strong> (bottom sheet on compact, right column on landscape). Only the canvas changes.</li>
+      <li><strong>Swipe left</strong> to bring the next character forward; the peek and hero swap with a slide animation.</li>
+      <li><strong>Story bars at top</strong> stay (auto-advance still ticks). <strong>"Meet Kai" chip can be removed</strong> — peek + swipe + auto-advance is plenty of affordance.</li>
+    </ul>
+  </header>
+
+  <!-- ─────────── Scene 1: Luma focused, Kai peek on right ─────────── -->
+
+  <section class="scene">
+    <h2>Scene 1 — Luma focused, Kai peeking on the right</h2>
+    <div class="meta">Initial state. Kai's gradient + partial name visible at right edge → "there's another character here."</div>
+
+    <div class="frames">
+      <!-- iPhone -->
+      <div>
+        <div class="frame-label">iPhone · compact</div>
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="nav-back">‹</div>
+            <div class="compact-screen">
+              <div class="stage-area">
+                <div class="story-bars">
+                  <div class="story-bar active"></div>
+                  <div class="story-bar"></div>
+                </div>
+                <div class="stage">
+                  <div class="main luma-bg">
+                    <div class="name">LUMA</div>
+                    <img class="luma-portrait" src="img/luma_clean.png" alt="Luma" />
+                  </div>
+                  <div class="peek kai-bg">
+                    <div class="peek-name">KAI</div>
+                  </div>
+                </div>
+              </div>
+              <div class="lore-sheet">
+                <div class="tagline">"I'll always pick up the group chat."</div>
+                <div class="lore-list-h4">Into</div>
+                <ul class="lore-list">
+                  <li>loud lunch tables</li>
+                  <li>the right playlist for your mood</li>
+                  <li>knowing your birthday before you remember it</li>
+                </ul>
+                <div class="lore-list-h4">Not her thing</div>
+                <ul class="lore-list">
+                  <li>silent group chats</li>
+                  <li>people who say "we'll see"</li>
+                </ul>
+                <div class="cta-fixed">
+                  <button class="cta">Pick Luma →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPad landscape -->
+      <div style="flex: 1; min-width: 600px;">
+        <div class="frame-label">iPad · landscape</div>
+        <div class="ipad-frame">
+          <div class="ipad-screen">
+            <div class="nav-back">‹</div>
+            <div class="ipad-layout">
+              <div class="canvas">
+                <div class="story-bars">
+                  <div class="story-bar active"></div>
+                  <div class="story-bar"></div>
+                </div>
+                <div class="stage">
+                  <div class="main luma-bg">
+                    <div class="name">LUMA</div>
+                    <img class="luma-portrait" src="img/luma_clean.png" alt="Luma" />
+                  </div>
+                  <div class="peek kai-bg">
+                    <div class="peek-name">KAI</div>
+                    <div class="peek-cta">tap or swipe</div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="eyebrow">1 of 2</div>
+                <h2>Luma</h2>
+                <div class="tagline">"I'll always pick up the group chat."</div>
+                <div class="lore-list-h4">Into</div>
+                <ul class="lore-list">
+                  <li>loud lunch tables</li>
+                  <li>naming her roommate's plant Stephen</li>
+                  <li>the right playlist for your mood</li>
+                  <li>knowing your birthday before you remember it</li>
+                </ul>
+                <div class="lore-list-h4">Not her thing</div>
+                <ul class="lore-list">
+                  <li>silent group chats</li>
+                  <li>people who say "we'll see"</li>
+                </ul>
+                <div class="cta-row">
+                  <button class="cta">Pick Luma →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <strong>Read:</strong>
+      <ul>
+        <li>Kai's deep blue gradient takes ~14% of the canvas right edge — instantly readable as "another option here"</li>
+        <li>The "KAI" name in the peek strip is centered in the visible slice — partially cropped by design (more there to discover)</li>
+        <li>iPad version adds a small "tap or swipe" hint inside the peek so the affordance is unmissable on a larger screen</li>
+        <li>No "Meet Kai" chip — the peek replaces it</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─────────── Scene 2: Kai focused, Luma peek on left ─────────── -->
+
+  <section class="scene">
+    <h2>Scene 2 — Kai focused, Luma peeking on the left</h2>
+    <div class="meta">After swiping left or tapping the right peek. Hero/peek swap with a slide animation; lore panel content updates in sync.</div>
+
+    <div class="frames">
+      <!-- iPhone -->
+      <div>
+        <div class="frame-label">iPhone · compact</div>
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="nav-back">‹</div>
+            <div class="compact-screen">
+              <div class="stage-area">
+                <div class="story-bars">
+                  <div class="story-bar complete"></div>
+                  <div class="story-bar active"></div>
+                </div>
+                <div class="stage">
+                  <div class="peek left luma-bg">
+                    <div class="peek-name">LUMA</div>
+                  </div>
+                  <div class="main kai-bg">
+                    <div class="name">KAI</div>
+                    <div class="kai-placeholder"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="lore-sheet">
+                <div class="tagline">"I'll just sit with you."</div>
+                <div class="lore-list-h4">Into</div>
+                <ul class="lore-list">
+                  <li>rainy windows</li>
+                  <li>finishing a book before starting another</li>
+                  <li>knowing exactly when to stop talking</li>
+                </ul>
+                <div class="lore-list-h4">Not his thing</div>
+                <ul class="lore-list">
+                  <li>forced cheerfulness</li>
+                  <li>surprise parties</li>
+                </ul>
+                <div class="cta-fixed">
+                  <button class="cta">Pick Kai →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPad landscape -->
+      <div style="flex: 1; min-width: 600px;">
+        <div class="frame-label">iPad · landscape</div>
+        <div class="ipad-frame">
+          <div class="ipad-screen">
+            <div class="nav-back">‹</div>
+            <div class="ipad-layout">
+              <div class="canvas">
+                <div class="story-bars">
+                  <div class="story-bar complete"></div>
+                  <div class="story-bar active"></div>
+                </div>
+                <div class="stage">
+                  <div class="peek left luma-bg">
+                    <div class="peek-name">LUMA</div>
+                    <div class="peek-cta">tap or swipe</div>
+                  </div>
+                  <div class="main kai-bg">
+                    <div class="name">KAI</div>
+                    <div class="kai-placeholder"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="eyebrow">2 of 2</div>
+                <h2>Kai</h2>
+                <div class="tagline">"I'll just sit with you."</div>
+                <div class="lore-list-h4">Into</div>
+                <ul class="lore-list">
+                  <li>rainy windows</li>
+                  <li>finishing a book before starting another</li>
+                  <li>the smell of bookstores</li>
+                  <li>knowing exactly when to stop talking</li>
+                </ul>
+                <div class="lore-list-h4">Not his thing</div>
+                <ul class="lore-list">
+                  <li>forced cheerfulness</li>
+                  <li>surprise parties</li>
+                  <li>group projects with people who don't read</li>
+                </ul>
+                <div class="cta-row">
+                  <button class="cta">Pick Kai →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <strong>Read:</strong>
+      <ul>
+        <li>After swiping, Kai becomes the focused hero (full gradient + portrait area)</li>
+        <li>Luma peeks from the left now (mirrored) — user can swipe back or tap the peek to return</li>
+        <li>Story bars: bar 1 (Luma) is complete-state, bar 2 (Kai) is active-fill</li>
+        <li>Kai art is a placeholder gradient blob until the real portrait ships</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─────────── Comparison ─────────── -->
+
+  <section class="scene">
+    <h2>Comparison · what changes vs. the shipped static variant</h2>
+    <div class="meta">Built version (currently on the branch) vs. peek concept</div>
+
+    <div class="notes">
+      <strong>Stays the same:</strong>
+      <ul>
+        <li>Lore panel structure — bottom sheet on compact, right column on landscape, same tagline + lists + CTA</li>
+        <li>Story bars at top, auto-advance timer, swipe gestures, OnboardingLandscapeSplit container</li>
+        <li>All analytics events, OnboardingState selection logic, CharacterArchetype content</li>
+      </ul>
+      <strong style="margin-top: 8px; display: block;">Changes:</strong>
+      <ul>
+        <li><strong>Canvas splits into hero (~86%) + peek (~14%)</strong> instead of a single full-bleed character</li>
+        <li><strong>"Meet Kai" chip is removed</strong> — the peek replaces it (and incidentally fixes the chip-vs-CTA adjacency confusion on iPad landscape)</li>
+        <li><strong>Peek shows next character's gradient + cropped name</strong> — discovery is now visual, not buried in a chip</li>
+        <li><strong>Peek is tappable</strong> (alternative to swipe) — bigger target than the chip ever was</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer style="margin-top: 80px; padding-top: 32px; border-top: 2px dashed rgba(0,0,0,0.15); font-size: 13px; color: var(--ink-mute);">
+    Concept only — not implemented yet.
+    Compare against <a href="alt732-shots.html" style="color: var(--periwinkle);">the shipped static variant screenshots</a>.
+    Branch: <code>oren/alt-732-redesign-onboarding-character-picker-hero-stage-with-auto</code>.
+  </footer>
+
+</div>
+</body>
+</html>
