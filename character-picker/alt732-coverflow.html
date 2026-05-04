@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALT-732 · Cover Flow Carousel · Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #FFFDF7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8580;
+    --periwinkle: #8C9EFF;
+
+    --luma-from: #FFD6E8;
+    --luma-mid: #F8B3D3;
+    --luma-to: #C9A8FF;
+    --luma-tint: #FFF1F7;
+
+    --kai-from: #DBE9FF;
+    --kai-mid: #6E96D6;
+    --kai-to: #1B3A6B;
+    --kai-tint: #EEF4FF;
+
+    --shadow: 4px 4px 0 #1a1a1a;
+    --shadow-sm: 2px 2px 0 #1a1a1a;
+    --shadow-card: 6px 6px 0 #1a1a1a;
+    --border: 1.5px solid #1a1a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Outfit', system-ui, sans-serif;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 1320px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  header { border-bottom: var(--border); padding-bottom: 24px; margin-bottom: 40px; }
+  header .eyebrow {
+    font-family: 'Fraunces', serif; font-style: italic;
+    color: var(--ink-mute); font-size: 13px; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  header h1 {
+    font-weight: 900; font-size: clamp(28px, 5vw, 44px);
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  header p { color: var(--ink-soft); font-size: 15px; margin-top: 12px; max-width: 760px; }
+  header ul { margin-top: 16px; padding-left: 20px; color: var(--ink-soft); font-size: 14px; }
+  header ul li { padding: 4px 0; }
+  header ul li strong { color: var(--ink); }
+
+  section.scene {
+    margin-top: 56px;
+    border-top: 2px dashed rgba(0,0,0,0.15);
+    padding-top: 24px;
+  }
+  section.scene h2 {
+    font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: 28px; letter-spacing: -0.02em; margin-bottom: 6px;
+  }
+  section.scene .meta {
+    color: var(--ink-mute); font-size: 13px; margin-bottom: 20px;
+    font-family: 'Fraunces', serif; font-style: italic;
+  }
+
+  .frames { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+  .frame-label {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-mute); margin-bottom: 8px; margin-left: 4px;
+  }
+
+  /* Frames */
+  .phone-frame {
+    width: 390px; height: 844px;
+    background: #1a1a1a; border-radius: 56px; padding: 12px;
+    box-shadow: var(--shadow); flex-shrink: 0;
+  }
+  .phone-screen {
+    width: 100%; height: 100%; background: var(--cream);
+    border-radius: 44px; overflow: hidden; position: relative;
+  }
+  .ipad-frame {
+    width: 100%; max-width: 1180px; aspect-ratio: 1180 / 820;
+    background: #1a1a1a; border-radius: 28px; padding: 14px;
+    box-shadow: var(--shadow);
+  }
+  .ipad-screen {
+    width: 100%; height: 100%; background: var(--cream);
+    border-radius: 16px; overflow: hidden; position: relative;
+  }
+
+  /* Common chrome */
+  .nav-back {
+    position: absolute; top: 60px; left: 20px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: white; border: var(--border); box-shadow: var(--shadow-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; z-index: 5;
+  }
+  .ipad-screen .nav-back { top: 24px; left: 24px; }
+
+  .story-bars {
+    position: absolute; top: 64px; left: 20px; right: 20px;
+    display: flex; gap: 6px; z-index: 4;
+  }
+  .ipad-screen .story-bars { top: 28px; left: 28px; right: 38vw; max-width: 60%; }
+  .story-bar {
+    flex: 1; height: 3px; background: rgba(0,0,0,0.18);
+    border-radius: 2px; overflow: hidden; position: relative;
+  }
+  .story-bar.active::after {
+    content: ""; position: absolute; inset: 0;
+    background: var(--ink); width: 35%;
+  }
+  .story-bar.complete { background: var(--ink); }
+
+  .cta {
+    background: var(--periwinkle); color: white; border: var(--border);
+    border-radius: 999px; padding: 14px 28px;
+    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 16px;
+    letter-spacing: 0.01em; box-shadow: var(--shadow); cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .lore-list { list-style: none; padding-left: 0; }
+  .lore-list li { font-size: 13px; padding: 3px 0; line-height: 1.35; }
+  .lore-list li::before { content: "— "; opacity: 0.7; }
+  .lore-list-h4 {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-top: 12px; margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  /* ───────── Cover-flow stage ───────── */
+
+  .stage-area {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    transition: background 0.5s ease;
+  }
+  /* Canvas tint that snaps to focal character */
+  .stage-area.luma-focal { background: var(--luma-tint); }
+  .stage-area.kai-focal  { background: var(--kai-tint); }
+
+  .carousel {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    position: absolute;
+    border-radius: 28px;
+    border: var(--border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.3s ease;
+  }
+  /* Phone card sizes */
+  .phone-screen .card { width: 250px; height: 360px; }
+  .phone-screen .card.focal { transform: translate(-50%, -50%) scale(1); left: 50%; top: 50%; z-index: 3; }
+  .phone-screen .card.peek-right {
+    transform: translate(-50%, -50%) scale(0.62); opacity: 0.55;
+    left: calc(100% - 50px); top: 50%; z-index: 1;
+  }
+  .phone-screen .card.peek-left {
+    transform: translate(-50%, -50%) scale(0.62); opacity: 0.55;
+    left: 50px; top: 50%; z-index: 1;
+  }
+
+  /* iPad card sizes */
+  .ipad-screen .card { width: 360px; height: 580px; }
+  .ipad-screen .card.focal { transform: translate(-50%, -50%) scale(1); left: 50%; top: 50%; z-index: 3; }
+  .ipad-screen .card.peek-right {
+    transform: translate(-50%, -50%) scale(0.62); opacity: 0.55;
+    left: calc(100% - 80px); top: 50%; z-index: 1;
+  }
+  .ipad-screen .card.peek-left {
+    transform: translate(-50%, -50%) scale(0.62); opacity: 0.55;
+    left: 80px; top: 50%; z-index: 1;
+  }
+
+  /* Card visuals */
+  .card.luma { background: linear-gradient(160deg, var(--luma-from), var(--luma-mid) 50%, var(--luma-to)); }
+  .card.kai  { background: linear-gradient(160deg, var(--kai-from), var(--kai-mid) 50%, var(--kai-to)); }
+
+  .card .name {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: white;
+    -webkit-text-stroke: 1.5px var(--ink);
+    margin-top: 24px;
+    text-align: center;
+  }
+  .ipad-screen .card .name { font-size: 96px; margin-top: 32px; }
+
+  .card .portrait-area {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .card .portrait-area img {
+    width: 90%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom;
+    mix-blend-mode: multiply;
+  }
+  .card .kai-placeholder {
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(circle at 50% 36%, var(--kai-mid) 0%, transparent 26%),
+      radial-gradient(ellipse 60% 40% at 50% 84%, var(--kai-mid) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, var(--kai-to) 0%, transparent 80%);
+    opacity: 0.5;
+  }
+
+  /* Page indicator dots */
+  .dots {
+    position: absolute;
+    bottom: 24px; left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    z-index: 4;
+  }
+  .ipad-screen .dots { bottom: 32px; }
+  .dots span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.25);
+  }
+  .dots span.active {
+    background: var(--ink);
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* Compact layout */
+  .compact-screen { display: flex; flex-direction: column; height: 100%; }
+  .compact-screen .stage-area { height: 480px; }
+  .compact-screen .lore-sheet {
+    flex: 1;
+    background: var(--cream);
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    padding: 24px 24px 32px;
+    margin-top: -32px;
+    border-top: var(--border);
+    position: relative;
+    z-index: 10;
+  }
+  .compact-screen .tagline {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 22px; line-height: 1.15; margin-bottom: 14px;
+  }
+  .compact-screen .cta-fixed {
+    position: absolute; bottom: 24px; left: 24px; right: 24px; text-align: center;
+  }
+  .compact-screen .cta-fixed .cta { width: 100%; justify-content: center; }
+
+  /* iPad layout */
+  .ipad-layout { display: flex; height: 100%; }
+  .ipad-layout .canvas { flex: 1; position: relative; overflow: hidden; }
+  .ipad-layout .panel {
+    width: 38%; max-width: 500px;
+    background: var(--cream);
+    border-left: var(--border);
+    padding: 56px 40px 32px;
+    display: flex; flex-direction: column;
+  }
+  .ipad-layout .panel .eyebrow {
+    font-family: 'Fraunces', serif; font-style: italic;
+    color: var(--ink-mute); font-size: 14px; margin-bottom: 6px;
+  }
+  .ipad-layout .panel h2 {
+    font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: 64px; line-height: 0.9; letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .ipad-layout .panel .tagline {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 22px; line-height: 1.2; margin-bottom: 20px;
+  }
+  .ipad-layout .panel .cta-row {
+    margin-top: auto; display: flex; justify-content: flex-end;
+  }
+
+  .notes {
+    background: rgba(140, 158, 255, 0.08);
+    border-left: 3px solid var(--periwinkle);
+    padding: 14px 16px; border-radius: 6px;
+    font-size: 14px; color: var(--ink-soft);
+    max-width: 760px; margin-top: 16px;
+  }
+  .notes strong { color: var(--ink); }
+  .notes ul { padding-left: 20px; margin-top: 6px; }
+  .notes li { padding: 2px 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="eyebrow">ALT-732 · Cover Flow Carousel · Concept · 2026-05-04</div>
+    <h1>Hero Stage v3 — cover flow (focal scaling)</h1>
+    <p>
+      Discrete <strong>cards</strong> instead of full-bleed gradients. Center
+      card is largest and fully colored; neighbors scale to ~62% and fade to
+      ~55% opacity, peeking from the canvas edges. Canvas background stays
+      still during the swipe and snaps to a soft tint of the focal character's
+      palette only after the swipe commits — no jarring full-bleed transitions.
+    </p>
+    <ul>
+      <li><strong>Apple's name for this:</strong> Cover Flow (iTunes / iPod / Photos). Same conceptual model: focused item is largest and centered; siblings scale and fade outward.</li>
+      <li><strong>Lore panel stays exactly as-is</strong> — bottom sheet on compact, right column on landscape. Only the canvas changes.</li>
+      <li><strong>Discovery:</strong> the second character is visible the moment the screen renders, no chip needed.</li>
+      <li><strong>"Meet Kai" chip removed</strong> — the visible peek card replaces it. Sidesteps the chip-vs-CTA adjacency confusion entirely.</li>
+      <li><strong>Background tint snaps</strong> on swipe commit — Luma focal → soft pink-cream; Kai focal → soft blue-cream. Subtle enough to not compete with the cards.</li>
+    </ul>
+  </header>
+
+  <!-- ─── Scene 1 ─── -->
+
+  <section class="scene">
+    <h2>Scene 1 — Luma focal, Kai card peeking on the right</h2>
+    <div class="meta">Initial state. Canvas tint: soft pink-cream.</div>
+
+    <div class="frames">
+      <div>
+        <div class="frame-label">iPhone · compact</div>
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="nav-back">‹</div>
+            <div class="compact-screen">
+              <div class="stage-area luma-focal">
+                <div class="story-bars">
+                  <div class="story-bar active"></div>
+                  <div class="story-bar"></div>
+                </div>
+                <div class="carousel">
+                  <div class="card kai peek-right">
+                    <div class="name">KAI</div>
+                    <div class="portrait-area"><div class="kai-placeholder"></div></div>
+                  </div>
+                  <div class="card luma focal">
+                    <div class="name">LUMA</div>
+                    <div class="portrait-area"><img src="img/luma_clean.png" alt="Luma" /></div>
+                  </div>
+                </div>
+                <div class="dots"><span class="active"></span><span></span></div>
+              </div>
+              <div class="lore-sheet">
+                <div class="tagline">"I'll always pick up the group chat."</div>
+                <div class="lore-list-h4">Into</div>
+                <ul class="lore-list">
+                  <li>loud lunch tables</li>
+                  <li>the right playlist for your mood</li>
+                  <li>knowing your birthday before you remember it</li>
+                </ul>
+                <div class="lore-list-h4">Not her thing</div>
+                <ul class="lore-list">
+                  <li>silent group chats</li>
+                  <li>people who say "we'll see"</li>
+                </ul>
+                <div class="cta-fixed">
+                  <button class="cta">Pick Luma →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex: 1; min-width: 600px;">
+        <div class="frame-label">iPad · landscape</div>
+        <div class="ipad-frame">
+          <div class="ipad-screen">
+            <div class="nav-back">‹</div>
+            <div class="ipad-layout">
+              <div class="canvas">
+                <div class="stage-area luma-focal" style="height: 100%;">
+                  <div class="story-bars">
+                    <div class="story-bar active"></div>
+                    <div class="story-bar"></div>
+                  </div>
+                  <div class="carousel">
+                    <div class="card kai peek-right">
+                      <div class="name">KAI</div>
+                      <div class="portrait-area"><div class="kai-placeholder"></div></div>
+                    </div>
+                    <div class="card luma focal">
+                      <div class="name">LUMA</div>
+                      <div class="portrait-area"><img src="img/luma_clean.png" alt="Luma" /></div>
+                    </div>
+                  </div>
+                  <div class="dots"><span class="active"></span><span></span></div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="eyebrow">1 of 2</div>
+                <h2>Luma</h2>
+                <div class="tagline">"I'll always pick up the group chat."</div>
+                <div class="lore-list-h4">Into</div>
+                <ul class="lore-list">
+                  <li>loud lunch tables</li>
+                  <li>naming her roommate's plant Stephen</li>
+                  <li>the right playlist for your mood</li>
+                  <li>knowing your birthday before you remember it</li>
+                </ul>
+                <div class="lore-list-h4">Not her thing</div>
+                <ul class="lore-list">
+                  <li>silent group chats</li>
+                  <li>people who say "we'll see"</li>
+                </ul>
+                <div class="cta-row">
+                  <button class="cta">Pick Luma →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <strong>Read:</strong>
+      <ul>
+        <li>Luma's card is the focal — full size, full opacity, full gradient, brand 3D shadow</li>
+        <li>Kai's card peeks from the right edge — scaled to 62%, faded to 55% opacity, partially visible</li>
+        <li>Canvas background is a soft pink-cream tint (matches Luma) — stays still during swipe</li>
+        <li>Dots at the bottom indicate position in the carousel; ⬛ active, • inactive</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── Scene 2 ─── -->
+
+  <section class="scene">
+    <h2>Scene 2 — Kai focal, Luma card peeking on the left</h2>
+    <div class="meta">After swipe commits. Canvas tint: soft blue-cream.</div>
+
+    <div class="frames">
+      <div>
+        <div class="frame-label">iPhone · compact</div>
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="nav-back">‹</div>
+            <div class="compact-screen">
+              <div class="stage-area kai-focal">
+                <div class="story-bars">
+                  <div class="story-bar complete"></div>
+                  <div class="story-bar active"></div>
+                </div>
+                <div class="carousel">
+                  <div class="card luma peek-left">
+                    <div class="name">LUMA</div>
+                    <div class="portrait-area"><img src="img/luma_clean.png" alt="Luma" /></div>
+                  </div>
+                  <div class="card kai focal">
+                    <div class="name">KAI</div>
+                    <div class="portrait-area"><div class="kai-placeholder"></div></div>
+                  </div>
+                </div>
+                <div class="dots"><span></span><span class="active"></span></div>
+              </div>
+              <div class="lore-sheet">
+                <div class="tagline">"I'll just sit with you."</div>
+                <div class="lore-list-h4">Into</div>
+                <ul class="lore-list">
+                  <li>rainy windows</li>
+                  <li>finishing a book before starting another</li>
+                  <li>knowing exactly when to stop talking</li>
+                </ul>
+                <div class="lore-list-h4">Not his thing</div>
+                <ul class="lore-list">
+                  <li>forced cheerfulness</li>
+                  <li>surprise parties</li>
+                </ul>
+                <div class="cta-fixed">
+                  <button class="cta">Pick Kai →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex: 1; min-width: 600px;">
+        <div class="frame-label">iPad · landscape</div>
+        <div class="ipad-frame">
+          <div class="ipad-screen">
+            <div class="nav-back">‹</div>
+            <div class="ipad-layout">
+              <div class="canvas">
+                <div class="stage-area kai-focal" style="height: 100%;">
+                  <div class="story-bars">
+                    <div class="story-bar complete"></div>
+                    <div class="story-bar active"></div>
+                  </div>
+                  <div class="carousel">
+                    <div class="card luma peek-left">
+                      <div class="name">LUMA</div>
+                      <div class="portrait-area"><img src="img/luma_clean.png" alt="Luma" /></div>
+                    </div>
+                    <div class="card kai focal">
+                      <div class="name">KAI</div>
+                      <div class="portrait-area"><div class="kai-placeholder"></div></div>
+                    </div>
+                  </div>
+                  <div class="dots"><span></span><span class="active"></span></div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="eyebrow">2 of 2</div>
+                <h2>Kai</h2>
+                <div class="tagline">"I'll just sit with you."</div>
+                <div class="lore-list-h4">Into</div>
+                <ul class="lore-list">
+                  <li>rainy windows</li>
+                  <li>finishing a book before starting another</li>
+                  <li>the smell of bookstores</li>
+                  <li>knowing exactly when to stop talking</li>
+                </ul>
+                <div class="lore-list-h4">Not his thing</div>
+                <ul class="lore-list">
+                  <li>forced cheerfulness</li>
+                  <li>surprise parties</li>
+                  <li>group projects with people who don't read</li>
+                </ul>
+                <div class="cta-row">
+                  <button class="cta">Pick Kai →</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <strong>Read:</strong>
+      <ul>
+        <li>Kai's card is now focal (full size, dark navy gradient)</li>
+        <li>Luma peeks from the left at 62% scale</li>
+        <li>Canvas tint snapped to soft blue-cream</li>
+        <li>Story bars: bar 1 complete (Luma seen), bar 2 active (Kai filling)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── Comparison ─── -->
+
+  <section class="scene">
+    <h2>v1 (shipped) · v2 (peek bleed) · v3 (cover flow) — at a glance</h2>
+    <div class="notes">
+      <strong>v1 — full-bleed static + Meet Kai chip</strong> (shipped on the branch)
+      <ul>
+        <li>One character full-bleed; second character requires noticing the chip</li>
+        <li>Chip-vs-CTA adjacency caused selection confusion on iPad landscape</li>
+      </ul>
+      <strong style="margin-top: 12px; display: block;">v2 — peek bleed (gradient continues to edge)</strong>
+      <ul>
+        <li>Next character's gradient slice on right edge of full-bleed canvas</li>
+        <li>Looked unnatural — full-bleed gradient bleeding into another full-bleed gradient with no visual seam</li>
+      </ul>
+      <strong style="margin-top: 12px; display: block;">v3 — cover flow (this concept)</strong>
+      <ul>
+        <li>Discrete brand-styled cards (rounded, bordered, shadowed) — clearly read as distinct items</li>
+        <li>Center is large, neighbors are scaled and faded — Apple's Cover Flow pattern, familiar to kids who've used iOS Photos / Music</li>
+        <li>Background canvas is still cream-tinted; only snaps subtly on commit</li>
+        <li>No chip, no gradient bleeding — cleanest of the three</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer style="margin-top: 80px; padding-top: 32px; border-top: 2px dashed rgba(0,0,0,0.15); font-size: 13px; color: var(--ink-mute);">
+    Concept only — not implemented yet.
+    Compare against
+    <a href="alt732-shots.html" style="color: var(--periwinkle);">v1 shipped screenshots</a>
+    and the
+    <a href="alt732-peek-carousel.html" style="color: var(--periwinkle);">v2 peek concept</a>.
+  </footer>
+
+</div>
+</body>
+</html>
