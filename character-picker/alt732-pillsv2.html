@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ALT-732 · Picker copy v2 · "What you'll see" + "Made for kids who…"</title>
+<style>
+  :root {
+    --bg: #f7f3ec;
+    --ink: #1d1a17;
+    --ink-soft: #5a544c;
+    --accent: #b8870a;
+    --line: rgba(29,26,23,0.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  header {
+    padding: 56px 32px 24px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-family: "Iowan Old Style", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: -0.01em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .lede {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 64ch;
+  }
+  .meta {
+    margin-top: 16px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+  }
+  .meta b { color: var(--ink); }
+  main {
+    padding: 16px 32px 96px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  section {
+    margin-top: 56px;
+  }
+  h2 {
+    font-family: "Iowan Old Style", Georgia, serif;
+    font-size: 22px;
+    margin: 0 0 8px;
+  }
+  .caption {
+    font-size: 13px;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 0 20px;
+    line-height: 1.55;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    align-items: start;
+  }
+  figure {
+    margin: 0;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(29,26,23,0.05);
+  }
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #fafafa;
+  }
+  figcaption {
+    margin-top: 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+  }
+  .changes {
+    margin-top: 32px;
+    padding: 24px;
+    background: rgba(184,135,10,0.07);
+    border: 1px solid rgba(184,135,10,0.2);
+    border-radius: 14px;
+  }
+  .changes h2 {
+    margin-bottom: 12px;
+  }
+  .changes ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .changes ul li + li {
+    margin-top: 8px;
+  }
+  .changes b { color: var(--accent); }
+</style>
+</head>
+<body>
+  <header>
+    <h1>ALT-732 · Picker copy <em>v2</em></h1>
+    <p class="lede">
+      Built screenshots from the iPhone 17 Pro Max and iPad mini simulators.
+      "Not really" is gone — replaced with two parent-meaningful pill rows:
+      <b>What you'll see</b> (concrete outcomes a parent might notice at home)
+      and <b>Made for kids who…</b> (closing argument right above the CTA).
+      "Friend" framing dropped throughout — Altys characters are guides, not friends.
+    </p>
+    <div class="meta">
+      <b>Branch</b> oren/alt-732-picker-as-sellflow-step ·
+      <b>Built</b> May 4 ·
+      <b>Style</b> coverFlow
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>iPhone 17 Pro Max — Kai focal</h2>
+      <p class="caption">
+        Cover-flow card with the focal "KAI" portrait, blue canvas tint extending through the
+        safe area. Headline + parent-facing subtitle at top, lore panel as a bottom sheet
+        with the new structure: tagline → guide-style two-beat → "What you'll see" pills →
+        "Made for kids who…" pills → CTA.
+      </p>
+      <div class="grid">
+        <figure>
+          <img src="alt732-built-pillsv2-iphone.png" alt="iPhone built screenshot — Kai focal in cover flow" />
+          <figcaption>iPhone 17 Pro Max · 393 × 852pt</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>iPad mini — Luma focal, portrait</h2>
+      <p class="caption">
+        Same composition with iPad-tuned spacing. Pills wrap into wider rows, tagline and
+        guide prose breathe more, all five outcomes and all five "Made for kids who…" items
+        fit on one row each.
+      </p>
+      <div class="grid">
+        <figure>
+          <img src="alt732-built-pillsv2-ipad-portrait.png" alt="iPad portrait built screenshot — Luma focal in cover flow" />
+          <figcaption>iPad mini · 744 × 1133pt portrait</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="changes">
+      <h2>What's new vs. v1</h2>
+      <ul>
+        <li><b>Header subtitle:</b> "Pick the <em>guide</em> you want by Oren's side." (was "the friend you want") — boundary-respecting language for an AI-to-kid relationship.</li>
+        <li><b>"Into" → "What you'll see":</b> filled-tinted pills now describe observable outcomes (longer attention spans, calmer evenings, real questions, etc.) instead of character self-trivia.</li>
+        <li><b>"Not really" → "Made for kids who…":</b> outlined pills with character-accent stroke. Kid-trait fragments parents can recognize (have big feelings, talk to think, get overwhelmed by noise…). The closing argument right above the CTA.</li>
+        <li><b>Section headers:</b> small-caps body font with 2pt kerning for editorial-magazine pacing.</li>
+        <li><b>Two-beat guide prose preserved:</b> "Bright, fast, full of plans. With Oren she'll be the one keeping the chat alive and the ideas flowing."</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
