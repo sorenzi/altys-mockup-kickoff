@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALT-732 · Both Picker Styles · Built Screenshots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #FFFDF7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8580;
+    --periwinkle: #8C9EFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Outfit', system-ui, sans-serif;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 1320px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  header {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+  }
+  header .eyebrow {
+    font-family: 'Fraunces', serif; font-style: italic;
+    color: var(--ink-mute); font-size: 13px; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  header h1 {
+    font-weight: 900; font-size: clamp(28px, 5vw, 44px);
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  header p {
+    color: var(--ink-soft); font-size: 15px;
+    margin-top: 12px; max-width: 760px;
+  }
+
+  section.style {
+    margin-top: 56px;
+    border-top: 2px dashed rgba(0,0,0,0.15);
+    padding-top: 24px;
+  }
+  section.style h2 {
+    font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: 32px; letter-spacing: -0.02em; margin-bottom: 6px;
+  }
+  section.style .meta {
+    color: var(--ink-mute); font-size: 13px; margin-bottom: 24px;
+    font-family: 'Fraunces', serif; font-style: italic;
+  }
+  section.style .enum {
+    display: inline-block;
+    background: var(--ink); color: white;
+    padding: 4px 10px; border-radius: 4px;
+    font-family: 'Outfit', monospace;
+    font-size: 12px; font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .frames {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+  @media (max-width: 880px) { .frames { grid-template-columns: 1fr; } }
+
+  .frame {
+    display: flex;
+    flex-direction: column;
+  }
+  .frame-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 10px;
+  }
+  .frame-img {
+    background: #1a1a1a;
+    border-radius: 24px;
+    padding: 8px;
+    box-shadow: 4px 4px 0 #1a1a1a;
+  }
+  .frame-img img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+  }
+
+  .notes {
+    background: rgba(140, 158, 255, 0.08);
+    border-left: 3px solid var(--periwinkle);
+    padding: 14px 16px; border-radius: 6px;
+    font-size: 14px; color: var(--ink-soft);
+    max-width: 760px; margin-top: 24px;
+  }
+  .notes strong { color: var(--ink); }
+  .notes ul { padding-left: 20px; margin-top: 6px; }
+  .notes li { padding: 2px 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="eyebrow">ALT-732 · Built screenshots · Both styles · 2026-05-04</div>
+    <h1>Two picker styles, side by side</h1>
+    <p>
+      Captured directly from the iOS build. Same view (<code>CharacterSelectionStepView</code>),
+      same state machine, same lore content — visual style switched via the new
+      <code>CharacterPickerStyle</code> enum. Pick whichever feels right; we ship one and
+      keep the other available for A/B or future flag.
+    </p>
+    <p style="margin-top: 16px; color: var(--ink-mute); font-size: 13px;">
+      Note: hero portraits aren't bundled yet — the gradient stage / cover-flow card show through
+      where the character will appear. iPad landscape was forced via a temporary flag (couldn't
+      rotate the simulator from the agent without accessibility perms) so the proportions are
+      tall-narrow rather than wide-short — the structural intent is correct.
+    </p>
+  </header>
+
+  <!-- ─── Cover Flow ─── -->
+
+  <section class="style">
+    <div class="enum">.coverFlow</div>
+    <h2>Cover Flow — discrete cards, focal scaling</h2>
+    <div class="meta">
+      Canvas tint snaps to focal character (pink-cream / blue-cream) · cards have brand 3D shadow ·
+      neighbor scales to 62% with 55% opacity · no story bars · no Meet-Next chip · position dots at bottom.
+    </div>
+
+    <div class="frames">
+      <div class="frame">
+        <div class="frame-label">iPhone · compact</div>
+        <div class="frame-img"><img src="alt732-built-coverflow-iphone.png?v=1" alt="cover flow iPhone"></div>
+      </div>
+      <div class="frame">
+        <div class="frame-label">iPad · portrait</div>
+        <div class="frame-img"><img src="alt732-built-coverflow-ipad-portrait.png?v=1" alt="cover flow iPad portrait"></div>
+      </div>
+      <div class="frame">
+        <div class="frame-label">iPad · landscape (forced)</div>
+        <div class="frame-img"><img src="alt732-built-coverflow-ipad-landscape.png?v=1" alt="cover flow iPad landscape"></div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <strong>What you're seeing:</strong>
+      <ul>
+        <li>Focal Luma card centered with Kai's navy card peeking from the right edge</li>
+        <li>Pink-cream canvas tint (snaps to blue-cream when Kai becomes focal)</li>
+        <li>Position dots at the bottom indicate which card is focal</li>
+        <li>Empty card body where the hero portrait will go once art ships</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── Hero Static ─── -->
+
+  <section class="style">
+    <div class="enum">.heroStatic</div>
+    <h2>Hero Static — full-bleed gradient + Meet-Next chip</h2>
+    <div class="meta">
+      Original v1 design · full-bleed character backdrop · giant typography behind portrait area ·
+      story bars at top (Instagram pattern) · "Meet Kai →" chip · 7s auto-advance.
+    </div>
+
+    <div class="frames">
+      <div class="frame">
+        <div class="frame-label">iPhone · compact</div>
+        <div class="frame-img"><img src="alt732-built-herostatic-iphone.png?v=1" alt="hero static iPhone"></div>
+      </div>
+      <div class="frame">
+        <div class="frame-label">iPad · portrait</div>
+        <div class="frame-img"><img src="alt732-built-herostatic-ipad-portrait.png?v=1" alt="hero static iPad portrait"></div>
+      </div>
+      <div class="frame">
+        <div class="frame-label">iPad · landscape (forced)</div>
+        <div class="frame-img"><img src="alt732-built-herostatic-ipad-landscape.png?v=1" alt="hero static iPad landscape"></div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <strong>What you're seeing:</strong>
+      <ul>
+        <li>Full-bleed pink → lavender gradient with giant LUMA name as typography behind</li>
+        <li>Story bars at top — bar 1 active (filling), bar 2 empty</li>
+        <li>"Meet Kai →" chip with Kai-color swatch — bottom-right on compact, bottom-left on landscape (separated from the panel CTA)</li>
+        <li>Same lore panel structure as cover flow — proves the only difference is the canvas</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── Decision rubric ─── -->
+
+  <section class="style">
+    <h2>Pick your fighter</h2>
+    <div class="notes">
+      <strong>Cover Flow leans:</strong>
+      <ul>
+        <li>Maximum discoverability — kid sees both characters within ~half a second of the screen rendering</li>
+        <li>No chip-vs-CTA confusion — peek replaces the chip entirely</li>
+        <li>Familiar pattern (Apple Music, Photos)</li>
+        <li>Subtle background tint keeps focus on the cards</li>
+      </ul>
+      <strong style="display: block; margin-top: 12px;">Hero Static leans:</strong>
+      <ul>
+        <li>More dramatic per-character moment — full-bleed gradient feels like meeting one character at a time</li>
+        <li>Giant name typography behind the hero is a strong visual signature</li>
+        <li>Story bars give explicit progress feedback for auto-advance</li>
+        <li>Risk: the Meet-Next chip can be missed by fast-tappers</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer style="margin-top: 64px; padding-top: 24px; border-top: 2px dashed rgba(0,0,0,0.15); font-size: 13px; color: var(--ink-mute);">
+    Branch: <code>oren/alt-732-...</code> · commit <code>fc4cf56</code> ·
+    <a href="https://linear.app/altys/issue/ALT-732/redesign-onboarding-character-picker-hero-stage-with-auto-advance" style="color: var(--periwinkle);">ALT-732 in Linear</a>
+  </footer>
+
+</div>
+</body>
+</html>
