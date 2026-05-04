@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALT-732 · Character Picker · Built Screenshots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #FFFDF7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8580;
+    --periwinkle: #8C9EFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Outfit', system-ui, sans-serif;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 1240px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  header {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+  }
+  header .eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  header p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin-top: 12px;
+    max-width: 720px;
+  }
+
+  .shot {
+    margin-bottom: 64px;
+  }
+  .shot h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .shot .meta {
+    color: var(--ink-mute);
+    font-size: 13px;
+    margin-bottom: 16px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+  .shot .frame {
+    background: #1a1a1a;
+    border-radius: 28px;
+    padding: 12px;
+    box-shadow: 6px 6px 0 #1a1a1a;
+    display: inline-block;
+    max-width: 100%;
+  }
+  .shot .frame img {
+    display: block;
+    border-radius: 18px;
+    max-width: 100%;
+    height: auto;
+  }
+  .shot.iphone .frame { border-radius: 56px; padding: 12px; }
+  .shot.iphone .frame img { border-radius: 44px; max-width: 360px; }
+
+  .shot.ipad .frame img { max-width: 600px; }
+  .shot.ipad-landscape .frame img { max-width: 700px; }
+
+  .notes {
+    background: rgba(140, 158, 255, 0.08);
+    border-left: 3px solid var(--periwinkle);
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-top: 12px;
+  }
+  .notes strong { color: var(--ink); }
+  .notes ul { padding-left: 20px; margin-top: 6px; }
+  .notes li { padding: 2px 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="eyebrow">ALT-732 · Character Picker · Built Screenshots · 2026-05-04</div>
+    <h1>Hero Stage — running on the actual app</h1>
+    <p>
+      Captured from the iOS build on simulator (iPhone 17 Pro Max,
+      iPad mini 6th gen, iPad Pro 11"). The picker view is wired to the
+      real <code>OnboardingState</code>, real <code>CharacterArchetype</code>
+      content (Phase 1), real shared <code>OnboardingLandscapeSplit</code>
+      container (Phase 2), and real auto-advance state machine + analytics
+      hooks (Phase 3+4). Hero portraits are not yet bundled — the gradient
+      stage shows through where the character will go.
+    </p>
+  </header>
+
+  <div class="shot iphone">
+    <h2>iPhone — initial state (Luma)</h2>
+    <div class="meta">iPhone 17 Pro Max simulator · compact layout</div>
+    <div class="frame">
+      <img src="alt732-iphone.png" alt="iPhone screenshot of character picker showing Luma">
+    </div>
+    <div class="notes">
+      <strong>What you're seeing:</strong>
+      <ul>
+        <li>Story-bar progress at top — bar 1 (Luma) starting to fill</li>
+        <li>Giant "LUMA" name typography behind portrait area</li>
+        <li>"Meet Kai →" chip in bottom-right of the stage with Kai's color swatch</li>
+        <li>Lore sheet below: tagline, "Into" list, "Not their thing" list, primary CTA</li>
+        <li>CTA is currently green because the screenshot wrapper uses <code>.notebook</code> theme — production will use whatever theme is active during onboarding</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="shot ipad">
+    <h2>iPad — portrait</h2>
+    <div class="meta">iPad mini 6th gen simulator · same compact layout, scaled up</div>
+    <div class="frame">
+      <img src="alt732-ipad-portrait.png" alt="iPad portrait screenshot of character picker">
+    </div>
+    <div class="notes">
+      <strong>What you're seeing:</strong>
+      <ul>
+        <li>Same compact layout (story bars + stage + lore sheet) since iPad portrait is still <code>!isLandscapeIPad</code></li>
+        <li>"1 of 2" eyebrow visible above tagline (only shown on iPad)</li>
+        <li>LUMA name renders larger, fits cleanly without clipping</li>
+        <li>Lore sheet is now centered horizontally with proper margins</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="shot ipad ipad-landscape">
+    <h2>iPad — landscape (rendered via forced flag)</h2>
+    <div class="meta">iPad Pro 11" simulator · OnboardingLandscapeSplit · canvas + panel</div>
+    <div class="frame">
+      <img src="alt732-ipad-landscape.png" alt="iPad landscape rendering of character picker">
+    </div>
+    <div class="notes">
+      <strong>Caveat:</strong> the simulator window was in portrait orientation, so the proportions inside are skewed (canvas is too tall, panel is too tall). The <em>layout structure</em> is correct: <code>OnboardingLandscapeSplit</code> places the hero stage on the left (62%) and the lore panel on the right (38%, capped at 500pt). When run on a real iPad in landscape, the canvas will be wider and shorter, the panel will be its full height with the bottom-pinned CTA, and the meet-chip + story-bars overlay correctly. Couldn't rotate the simulator from the agent without accessibility perms.
+      <br><br>
+      <strong>What you're seeing:</strong>
+      <ul>
+        <li>Two-column split via the new shared <code>OnboardingLandscapeSplit</code> (Phase 2)</li>
+        <li>Left canvas: gradient + giant LUMA name + Meet Kai chip in bottom-right</li>
+        <li>Right panel: lore content top-aligned with bottom-pinned "Pick Luma" CTA</li>
+        <li>Story bars on top-left of canvas (smaller scale than compact)</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer style="margin-top: 64px; padding-top: 24px; border-top: 2px dashed rgba(0,0,0,0.15); font-size: 13px; color: var(--ink-mute);">
+    Branch: <code>oren/alt-732-redesign-onboarding-character-picker-hero-stage-with-auto</code> ·
+    <a href="https://linear.app/altys/issue/ALT-732/redesign-onboarding-character-picker-hero-stage-with-auto-advance" style="color: var(--periwinkle);">ALT-732 in Linear</a>
+  </footer>
+
+</div>
+</body>
+</html>
