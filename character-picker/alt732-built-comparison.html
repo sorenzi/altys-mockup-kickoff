@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ALT-732 · Picker copy v2 · "What you'll see" + "Made for kids who…"</title>
+<title>ALT-732 · Picker v3 · Lean copy + scroll-with-pinned-CTA</title>
 <style>
   :root {
     --bg: #f7f3ec;
@@ -123,34 +123,34 @@
 </head>
 <body>
   <header>
-    <h1>ALT-732 · Picker copy <em>v2</em></h1>
+    <h1>ALT-732 · Picker <em>v3</em></h1>
     <p class="lede">
-      Built screenshots from the iPhone 17 Pro Max and iPad mini simulators.
-      "Not really" is gone — replaced with two parent-meaningful pill rows:
-      <b>What you'll see</b> (concrete outcomes a parent might notice at home)
-      and <b>Made for kids who…</b> (closing argument right above the CTA).
-      "Friend" framing dropped throughout — Altys characters are guides, not friends.
+      Built screenshots from iPhone 17 Pro Max and iPad mini simulators.
+      Round of cuts after live review: title now matches the rest of onboarding
+      (gold-accented name, no subtitle), the two-beat parent prose is gone, pills
+      trimmed from 5 → 3 per row, and the lore sheet now <b>scrolls</b> with the
+      "Pick X" CTA <b>pinned as a footer</b>.
     </p>
     <div class="meta">
-      <b>Branch</b> oren/alt-732-picker-as-sellflow-step ·
-      <b>Built</b> May 4 ·
-      <b>Style</b> coverFlow
+      <b>Built</b> May 5 ·
+      <b>Style</b> coverFlow ·
+      <b>Status</b> on main
     </div>
   </header>
 
   <main>
     <section>
-      <h2>iPhone 17 Pro Max — Kai focal</h2>
+      <h2>iPhone 17 Pro Max — Luma focal</h2>
       <p class="caption">
-        Cover-flow card with the focal "KAI" portrait, blue canvas tint extending through the
-        safe area. Headline + parent-facing subtitle at top, lore panel as a bottom sheet
-        with the new structure: tagline → guide-style two-beat → "What you'll see" pills →
-        "Made for kids who…" pills → CTA.
+        Title <code>"Who should guide Oren?"</code> with the kid's name highlighted in
+        <code>theme.goldAccent</code>, matching the rest of the onboarding accent-headline
+        pattern. No subtitle. Lore sheet shows tagline + 3 outcome pills + 3 fit pills,
+        with "Pick Luma" pinned at the bottom.
       </p>
       <div class="grid">
         <figure>
-          <img src="alt732-built-pillsv2-iphone.png" alt="iPhone built screenshot — Kai focal in cover flow" />
-          <figcaption>iPhone 17 Pro Max · 393 × 852pt</figcaption>
+          <img src="alt732-built-pillsv3-iphone.png" alt="iPhone v3 — Luma focal in cover flow" />
+          <figcaption>iPhone 17 Pro Max · 440 × 956pt</figcaption>
         </figure>
       </div>
     </section>
@@ -158,13 +158,12 @@
     <section>
       <h2>iPad mini — Luma focal, portrait</h2>
       <p class="caption">
-        Same composition with iPad-tuned spacing. Pills wrap into wider rows, tagline and
-        guide prose breathe more, all five outcomes and all five "Made for kids who…" items
-        fit on one row each.
+        Same composition with iPad-tuned spacing. Pills sit on one row each on this
+        viewport size. "1 of 2" carousel indicator visible top-left of the sheet.
       </p>
       <div class="grid">
         <figure>
-          <img src="alt732-built-pillsv2-ipad-portrait.png" alt="iPad portrait built screenshot — Luma focal in cover flow" />
+          <img src="alt732-built-pillsv3-ipad-portrait.png" alt="iPad portrait v3 — Luma focal" />
           <figcaption>iPad mini · 744 × 1133pt portrait</figcaption>
         </figure>
       </div>
@@ -173,29 +172,30 @@
     <section>
       <h2>iPad mini — Luma focal, landscape composition</h2>
       <p class="caption">
-        Landscape layout uses <code>OnboardingLandscapeSplit</code>: cover-flow hero on the
-        left, lore panel on the right with the full content stack.
+        Landscape uses <code>OnboardingLandscapeSplit</code> — cover-flow hero on the
+        left, lore panel on the right with tagline → outcome pills → fit pills → pinned
+        CTA footer.
         <b>Caveat:</b> the macOS Simulator rotation API was blocked in this environment
         (System Events accessibility refused), so dimensions stay iPad-portrait — but the
-        SwiftUI composition rendered inside is the actual landscape layout. On a real iPad
-        in landscape the columns breathe wider (pills won't wrap as tightly).
+        SwiftUI composition rendered inside is the actual landscape layout. On a real
+        iPad in landscape the columns breathe wider.
       </p>
       <div class="grid">
         <figure>
-          <img src="alt732-built-pillsv2-ipad-landscape.png" alt="iPad landscape composition — Luma focal" />
+          <img src="alt732-built-pillsv3-ipad-landscape.png" alt="iPad landscape v3 — Luma focal" />
           <figcaption>iPad mini · landscape composition rendered into portrait viewport</figcaption>
         </figure>
       </div>
     </section>
 
     <section class="changes">
-      <h2>What's new vs. v1</h2>
+      <h2>What's new vs. v2</h2>
       <ul>
-        <li><b>Header subtitle:</b> "Pick the <em>guide</em> you want by Oren's side." (was "the friend you want") — boundary-respecting language for an AI-to-kid relationship.</li>
-        <li><b>"Into" → "What you'll see":</b> filled-tinted pills now describe observable outcomes (longer attention spans, calmer evenings, real questions, etc.) instead of character self-trivia.</li>
-        <li><b>"Not really" → "Made for kids who…":</b> outlined pills with character-accent stroke. Kid-trait fragments parents can recognize (have big feelings, talk to think, get overwhelmed by noise…). The closing argument right above the CTA.</li>
-        <li><b>Section headers:</b> small-caps body font with 2pt kerning for editorial-magazine pacing.</li>
-        <li><b>Two-beat guide prose preserved:</b> "Bright, fast, full of plans. With Oren she'll be the one keeping the chat alive and the ideas flowing."</li>
+        <li><b>Title style:</b> matches onboarding accent-headline pattern. <code>"Who should guide [Name]?"</code> with the name in gold (<code>theme.goldAccent</code>).</li>
+        <li><b>Subtitle dropped:</b> "Each one shows up differently. Pick the guide you want by [name]'s side." — gone. Headline alone.</li>
+        <li><b>Two-beat prose dropped:</b> "Bright, fast, full of plans. With [name] she'll be the one keeping the chat alive…" — gone. Tagline + pills carry the message; sheet is much less text-heavy.</li>
+        <li><b>Pills trimmed:</b> 5 → 3 per row. Tighter, more scannable.</li>
+        <li><b>Scroll + pinned CTA:</b> lore sheet content is now in a <code>ScrollView</code>; the "Pick X" button sits in a fixed footer with a soft top-shadow, always reachable regardless of scroll position. Fixes the v2 issue where the CTA was clipped on small phones.</li>
       </ul>
     </section>
   </main>
